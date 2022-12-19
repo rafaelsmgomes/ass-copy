@@ -1,7 +1,8 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react'
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react'
+import { useAppSelector } from '../../redux'
+import { selectQuestionsLength } from '../../redux/questions/questionSelectors'
 
 export type SlidesType = {
-  step: number
   nextStep: () => void
   prevStep: () => void
   goToStep: (num: number) => void
@@ -12,6 +13,7 @@ export type SlidesType = {
   setArrowStatus: Dispatch<SetStateAction<ArrowStateType>>
   slidesCount: number
   setSlidesCount: Dispatch<SetStateAction<number>>
+  visitedSlides: number
 }
 type ArrowStatusType = 'inactive' | 'active'
 type ArrowStateType = {
@@ -22,29 +24,38 @@ type ArrowStateType = {
 const SlidesContext = createContext<SlidesType | undefined>(undefined)
 
 export const SlidesProvider = ({ children }: { children: ReactNode }) => {
-  const [step, setStep] = useState(0)
-  const [slidesCount, setSlidesCount] = useState(0)
+  const questionsLength = useAppSelector(selectQuestionsLength)
+
+  const [activeSlide, setActiveSlide] = useState(6)
+  const [slidesCount, setSlidesCount] = useState(questionsLength + 2 - 1)
+  const [visitedSlides, setVisitedSlides] = useState(0)
+
   const nextStep = () => {
-    setStep((cur) => (cur += 1))
+    setActiveSlide((cur) => (cur += 1))
   }
   const prevStep = () => {
-    setStep((cur) => (cur -= 1))
+    setActiveSlide((cur) => (cur -= 1))
   }
   const restart = () => {
-    setStep(0)
+    setActiveSlide(0)
   }
   const goToStep = (num: number) => {
-    setStep(num)
+    setActiveSlide(num)
   }
 
-  const [activeSlide, setActiveSlide] = useState(0)
-
   const [arrowStatus, setArrowStatus] = useState<ArrowStateType>({ left: 'inactive', right: 'active' })
+
+  useEffect(() => {
+    if (activeSlide > visitedSlides) {
+      setVisitedSlides(activeSlide)
+    }
+  }, [activeSlide, visitedSlides])
 
   return (
     <SlidesContext.Provider
       value={{
-        step,
+        visitedSlides,
+
         nextStep,
         prevStep,
         restart,

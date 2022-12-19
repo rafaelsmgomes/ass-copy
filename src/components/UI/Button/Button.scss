@@ -4,6 +4,7 @@
   color: white;
   padding: 6px 16px;
   display: flex;
+  font-weight: bold;
   align-items: center;
   border-radius: 6px;
   padding-right: 6px;
@@ -27,5 +28,9 @@
     svg {
       margin-left: 4px;
     }
+  }
+  &:disabled {
+    cursor: not-allowed;
+    @apply bg-neutral-fog;
   }
 }

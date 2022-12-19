@@ -1,4 +1,11 @@
-export type QuestionModel = { question: string; answers: string[]; type: string }
+export type QuestionModel = { question: string; answers: string[]; type: string; imgUrl: string }
+
+import q1Img from '../../assets/images/q1.jpg'
+import q2Img from '../../assets/images/q2.jpg'
+import q3Img from '../../assets/images/q3.jpg'
+import q4Img from '../../assets/images/q4.jpg'
+import q5Img from '../../assets/images/q5.jpg'
+import q6Img from '../../assets/images/q6.jpg'
 
 export const initialState: QuestionModel[] = [
   {
@@ -11,6 +18,7 @@ export const initialState: QuestionModel[] = [
       'Yes, I have complete insig ht into upcoming regulations to adapt quickly.',
     ],
     type: 'Risk Visibility & Materiality',
+    imgUrl: q1Img,
   },
   {
     question: 'Does your organization have a centralized process to onboard and engage suppliers?',
@@ -22,6 +30,7 @@ export const initialState: QuestionModel[] = [
       'Yes, we use a vendor to support supplier processes based on industry best practices.',
     ],
     type: 'Supplier Onboarding & Engagement',
+    imgUrl: q2Img,
   },
   {
     question: 'Can you measure supply chain risks across your entire supply chain (i.e. beyond Tier 1 suppliers)?',
@@ -31,6 +40,7 @@ export const initialState: QuestionModel[] = [
       'Yes, we have visibility into our complete supply chain',
     ],
     type: 'Data Depth',
+    imgUrl: q3Img,
   },
   {
     question: 'Are your supply chain sustainability programs supported across your business?',
@@ -42,6 +52,7 @@ export const initialState: QuestionModel[] = [
       'Yes, our whole organization rallies behind our programs.',
     ],
     type: 'Stakeholder Engagement',
+    imgUrl: q4Img,
   },
   {
     question: 'Do you have a connected view of all supplier data for defensible reporting?',
@@ -53,6 +64,7 @@ export const initialState: QuestionModel[] = [
       'Yes, ou r top-, supplier-, and part-level data is connected and updated in real-time for complete and defensible reporting.',
     ],
     type: 'Unified Data & Reporting',
+    imgUrl: q5Img,
   },
   {
     type: 'Risk Management & Mitigation',
@@ -64,5 +76,6 @@ export const initialState: QuestionModel[] = [
       'Yes, we can identify supplier risk in real-time and deliver recommendations to improve.',
       'Yes, we have a system to automatically identify supplier risks, deliver recommendations to improve, and track improvements throughout the year.',
     ],
+    imgUrl: q6Img,
   },
 ]

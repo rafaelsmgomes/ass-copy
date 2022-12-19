@@ -1,0 +1,45 @@
+@tailwind components;
+
+@layer components {
+  .question-copy {
+    // @apply;
+    font-family: 'Nunito';
+    font-size: 14px;
+    line-height: 1.29;
+    cursor: pointer;
+  }
+
+  .question-input {
+    input {
+      display: grid;
+      place-content: center;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid;
+      @apply border-neutral-charcoal border-opacity-40;
+
+      &::before {
+        content: '';
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        transform: scale(0);
+        transition: 0.2s transform ease-in-out;
+        box-shadow: inset 1em 1em #ffca3a;
+      }
+
+      &:checked::before {
+        transform: scale(1);
+      }
+    }
+  }
+  .question-img {
+    position: absolute;
+    left: 0;
+    object-fit: cover;
+    height: calc(100% - 100px - 30px);
+    max-width: calc(10% - 10px);
+  }
+}
