@@ -1,0 +1,84 @@
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+@mixin clearfix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} {
+    @content;
+  }
+  @-moz-keyframes #{$animationName} {
+    @content;
+  }
+  @-o-keyframes #{$animationName} {
+    @content;
+  }
+  @keyframes #{$animationName} {
+    @content;
+  }
+}
+
+@mixin Shadowed {
+  -webkit-box-shadow: 0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0.4rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.4);
+}
+@mixin animation($animate...) {
+  $max: length($animate);
+  $animations: '';
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+
+    @if $i < $max {
+      $animations: #{$animations + ', '};
+    }
+  }
+  -webkit-animation: $animations;
+  -moz-animation: $animations;
+  -o-animation: $animations;
+  animation: $animations;
+}
+
+@mixin bp($point) {
+  @if $point == desktop {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  } @else if $point == smalldesk {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media (max-width: 990px) {
+      @content;
+    }
+  } @else if $point == phone {
+    @media (max-width: 500px) {
+      @content;
+    }
+  } @else if $point == phonesmall {
+    @media (max-width: 376px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: #{$point}px) {
+      @content;
+    }
+  }
+}

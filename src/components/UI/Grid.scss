@@ -1,0 +1,9 @@
+.layout-grid {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1345px;
+  @include bp(1345) {
+    padding: 0 30px;
+    // max-width: auto;
+  }
+}

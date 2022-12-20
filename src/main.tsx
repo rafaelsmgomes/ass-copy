@@ -5,9 +5,10 @@ import { Provider } from 'react-redux'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 
 import './index.scss'
-import QuestionsPage from './components/LandingPage/QuestionsPage'
-import Homepage from './components/Homepage/Homepage'
+import QuestionsPage from './layout/QuestionsPage/QuestionsPage'
+import Homepage from './layout/Homepage/Homepage'
 import store from './redux'
+import ReportPage from './layout/ReportPage/ReportPage'
 
 const router = createHashRouter([
   {
@@ -16,6 +17,7 @@ const router = createHashRouter([
     children: [
       { index: true, element: <Homepage /> },
       { path: 'questions', element: <QuestionsPage /> },
+      { path: 'report', element: <ReportPage /> },
     ],
   },
 ])

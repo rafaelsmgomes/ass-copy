@@ -28,7 +28,7 @@ const Slider = ({ items, renderItem }: SliderProps) => {
         style={
           { transform: `translateX(${100 * (6 - activeSlide)}%)`, transition: 'all 1s ease-in-out' } as CSSProperties
         }
-        className='absolute top-0 left-0 h-full w-1/2 bg-white pt-[30px] pb-[60px]'
+        className='absolute top-0 left-0 h-full w-1/2 bg-neutral-fog bg-opacity-20 pt-[30px] pb-[60px]'
       >
         <Gate />
       </div>
@@ -36,7 +36,7 @@ const Slider = ({ items, renderItem }: SliderProps) => {
         style={
           { transform: `translateX(${100 * (7 - activeSlide)}%)`, transition: 'all 1s ease-in-out' } as CSSProperties
         }
-        className='absolute top-0 left-0 h-full w-1/2 bg-white pt-[30px] pb-[60px]'
+        className='absolute top-0 left-0 h-full w-1/2 bg-neutral-fog bg-opacity-20 pt-[30px] pb-[60px]'
       >
         <Results />
       </div>

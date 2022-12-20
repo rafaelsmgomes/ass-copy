@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../redux'
-import { selectAnswersLength } from '../../redux/answers/answerSelectors'
 import { selectQuestions } from '../../redux/questions/questionSelectors'
 import { useSlider } from '../../slider/hooks/useSlider'
 
@@ -8,7 +7,6 @@ export type DotsProps = {}
 const Dots = (props: DotsProps) => {
   const { goToStep, activeSlide, visitedSlides } = useSlider()
   const questions = useAppSelector(selectQuestions)
-  const answersedNum = useAppSelector((s) => s.answers.answered)
 
   return (
     <div className='mb-6 flex items-center justify-center'>

@@ -29,6 +29,10 @@
         transition: 0.2s transform ease-in-out;
         box-shadow: inset 1em 1em #ffca3a;
       }
+      &:checked {
+        background-color: transparent;
+        @apply border-neutral-charcoal border-opacity-100;
+      }
 
       &:checked::before {
         transform: scale(1);
@@ -40,6 +44,6 @@
     left: 0;
     object-fit: cover;
     height: calc(100% - 100px - 30px);
-    max-width: calc(10% - 10px);
+    max-width: calc(100% - 670px - 20px);
   }
 }

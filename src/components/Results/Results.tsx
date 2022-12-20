@@ -5,13 +5,17 @@ import { ButtonLg } from '../UI/Button/Button'
 import { ReactComponent as RedX } from '../../assets/svgs/x-icon.svg'
 import { ReactComponent as Check } from '../../assets/svgs/check-icon.svg'
 
+import './Results.scss'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 export type ResultsProps = {}
 
 const Results = (props: ResultsProps) => {
+  const navigate = useNavigate()
   const blurbs = useAppSelector(selectBlurbs)
   const answers = useAppSelector(selectAnswers)
   return (
-    <div className='relative ml-auto h-full w-full bg-white py-[30px] px-5 shadow-question'>
+    <div className='results-page relative ml-auto h-full w-full bg-white py-[30px] px-5 shadow-question'>
       <p className='text-[14px] font-bold text-primary-green'>Your Results</p>
       <p className='leading- mb-6 text-[25px] font-bold leading-9 text-primary-blue '>
         How mature is my Supply Chain Sustainability?
@@ -38,7 +42,7 @@ const Results = (props: ResultsProps) => {
           )
         })}
       </div>
-      <ButtonLg>View Detailed Results</ButtonLg>
+      <ButtonLg onClick={() => navigate('/report')}>View Detailed Results</ButtonLg>
     </div>
   )
 }

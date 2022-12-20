@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="117" height="296.105" viewBox="0 0 117 296.105">
+    <g data-name="Group 188">
+        <text transform="translate(8.718)" style="font-family:Roboto-Regular,Roboto;fill:#343a40;font-size:14px;opacity:.8"><tspan x="32.339" y="15">Deep</tspan></text>
+        <text transform="translate(8.718 259.105)" style="font-family:Roboto-Regular,Roboto;fill:#343a40;font-size:14px;opacity:.8"><tspan x="23.808" y="15">Shallow</tspan></text>
+        <g data-name="Group 182">
+            <path data-name="Rectangle 72" transform="rotate(90 4.634 52.036)" style="fill:#2d4868" d="M0 0h196.357v3.065H0z"/>
+            <path data-name="Polygon 46" d="m8.429 0 8.429 13.792H0z" transform="rotate(-180 31.731 125.721)" style="fill:#2d4868"/>
+            <path data-name="Path 74" d="m8.429 0 8.429 13.792H0z" transform="translate(46.604 34.609)" style="fill:#2d4868"/>
+        </g>
+        <path data-name="Rectangle 75" transform="translate(0 132.826)" style="fill:#fff" d="M0 0h116.473v36.78H0z"/>
+        <text transform="translate(0 141.02)" style="font-family:Roboto-Bold,Roboto;font-weight:700;fill:#343a40;font-size:14px;opacity:.8"><tspan x="3.648" y="15">SUSTAINABILITY</tspan></text>
+    </g>
+</svg>

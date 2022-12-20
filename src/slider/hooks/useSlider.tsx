@@ -26,7 +26,7 @@ const SlidesContext = createContext<SlidesType | undefined>(undefined)
 export const SlidesProvider = ({ children }: { children: ReactNode }) => {
   const questionsLength = useAppSelector(selectQuestionsLength)
 
-  const [activeSlide, setActiveSlide] = useState(6)
+  const [activeSlide, setActiveSlide] = useState(0)
   const [slidesCount, setSlidesCount] = useState(questionsLength + 2 - 1)
   const [visitedSlides, setVisitedSlides] = useState(0)
 

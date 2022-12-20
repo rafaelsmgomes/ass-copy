@@ -15,38 +15,44 @@ export type SpiderGraphProps = {}
 
 export const radians = 2 * Math.PI
 
-const factor = 1
+const normalFactor = 1
+const lastLevelFactor = 1.2
 const lineLevels = 6
-const w = 362,
-  h = 362
-const radius = factor * Math.min(w / 2, h / 2)
+const w = 300,
+  h = 300
+const radius = normalFactor * Math.min(w / 2, h / 2)
 
 const SpiderGraph = (props: SpiderGraphProps) => {
-  const questions = useAppSelector(selectQuestions)
-
   return (
-    <div className='spider'>
+    <div className='spider '>
       <svg
         viewBox={window.innerWidth <= 600 ? '0 0 475 500' : '0 0 475 465'}
         preserveAspectRatio={'xMidYMid meet'}
-        className=''
+        className='max-w-[670px]'
       >
-        <g className='' style={{ transform: 'scale(0.9) translate(80px,70px)' }}>
+        <g className='' style={{ transform: 'scale(0.9) translate(120px,80px)' }}>
           <g className='all-levels'>
             {new Array(lineLevels).fill(undefined).map((_, lineIdx) => {
-              let levelFactor = factor * radius * ((lineIdx + 1) / lineLevels)
+              let levelFactor = lastLevelFactor * radius * ((lineIdx + 1) / lineLevels)
               return (
                 <g className={`level-${lineIdx}`} key={lineIdx}>
-                  <SpiderLines factor={factor} height={h} width={w} levelFactor={levelFactor} lineIdx={lineIdx} />
+                  <SpiderLines
+                    factor={normalFactor}
+                    height={h}
+                    width={w}
+                    levelFactor={levelFactor}
+                    lineIdx={lineIdx}
+                    lineLevels={lineLevels}
+                  />
                 </g>
               )
             })}
           </g>
-          <Axis factor={factor} height={h} width={w} radians={radians} />
-          <AxisLabels factor={factor} height={h} width={w} />
-          <SpiderNodes factor={factor} height={h} width={w} />
-          <Polygon width={w} height={h} factor={factor} />
-          <ResultsNodes factor={factor} height={h} width={w} />
+          <Axis factor={lastLevelFactor} height={h} width={w} radians={radians} />
+          <AxisLabels factor={lastLevelFactor} height={h} width={w} />
+          <SpiderNodes factor={normalFactor} height={h} width={w} />
+          <Polygon width={w} height={h} factor={normalFactor} />
+          <ResultsNodes factor={normalFactor} height={h} width={w} />
         </g>
       </svg>
     </div>

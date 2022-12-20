@@ -31,7 +31,7 @@ export function ButtonLg<T extends React.ElementType = 'button'>({
     <button className={`btn btn-lg ${className ? className : ''}`} {...props}>
       <span>{children}</span>
       <div className='ml-2 w-4'>
-        <Arrow className='h-2 w-2' />
+        <Arrow className='h-3 w-2' />
       </div>
     </button>
   )

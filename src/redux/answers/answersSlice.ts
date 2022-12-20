@@ -29,7 +29,9 @@ const initialState: { answerArr: ScoreType[]; answered: number } = {
   ],
   answered: 0,
 }
-type ScoreType = { score: number; label: string }
+
+export type ScoreType = { score: number; label: string }
+
 const answerSlices = createSlice({
   name: 'answers',
   initialState,
@@ -39,7 +41,7 @@ const answerSlices = createSlice({
         payload: { score, idx, label },
       } = action
       let minScore = score
-      if (score < 15) minScore = 15
+      if (score < 15) minScore = 10
 
       state.answerArr[idx] = { score: minScore, label }
       if (idx > state.answered) state.answered = idx

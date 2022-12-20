@@ -3,11 +3,13 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
 import answerSlices from './answers/answersSlice'
 import blurbsSlice from './blurbs/blurbsSlice'
 import questionSlice from './questions/questionsSlice'
+import reportSlice from './reports/reportSlice'
 
 export const rootReducers = combineReducers({
   questions: questionSlice.reducer,
   answers: answerSlices.reducer,
   blurbs: blurbsSlice.reducer,
+  reports: reportSlice.reducer,
 })
 
 const store = configureStore({

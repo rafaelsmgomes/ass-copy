@@ -1,0 +1,13 @@
+.results-page {
+  padding-left: max(30px, calc(100% - 670px));
+  &:after {
+    @apply bg-gradient-to-r from-primary-blue to-primary-green;
+    position: absolute;
+    width: 100%;
+    height: 6px;
+    top: 0;
+    left: 0;
+    display: block;
+    content: '';
+  }
+}

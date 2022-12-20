@@ -2,30 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { useAppSelector } from '../../redux'
 import { selectAnswers } from '../../redux/answers/answerSelectors'
 import { selectQuestionsLength } from '../../redux/questions/questionSelectors'
-import { ReactComponent as SmallTriangle } from '../../assets/svgs/small-triangle.svg'
-import { ReactComponent as BigTriangle } from '../../assets/svgs/big-triangle.svg'
-import { radians } from './SpiderGraph'
-import * as d3 from 'd3'
 import { useSlider } from '../../slider/hooks/useSlider'
 import { ReactComponent as Wrong } from '../../assets/svgs/x-icon.svg'
 import { ReactComponent as Check } from '../../assets/svgs/check-icon.svg'
-import { ScoreType } from '../../redux/answers/answersSlice'
+import { radians } from '../SpiderGraph/SpiderGraph'
 
-export type ResultsNodesProps = {
+export type ReportNodesProps = {
   width: number
   height: number
   factor: number
 }
 
-const ResultsNodes = ({ factor, height, width }: ResultsNodesProps) => {
+const ReportNodes = ({ factor, height, width }: ReportNodesProps) => {
   const answers = useAppSelector(selectAnswers)
   const totalLength = useAppSelector(selectQuestionsLength)
-  const { activeSlide, slidesCount } = useSlider()
-  const [isResultsPage, setisResultsPage] = useState(false)
-  useEffect(() => {
-    if (activeSlide === slidesCount) setisResultsPage(true)
-    else setisResultsPage(false)
-  }, [activeSlide])
 
   return (
     <g className='nodes-group'>
@@ -45,9 +35,8 @@ const ResultsNodes = ({ factor, height, width }: ResultsNodesProps) => {
           <g
             key={i}
             style={{ transform: `translate(${x}px,${y}px)` }} // this is how we position the object so we can animate it
-            className={`fill-secondary-gold  transition-all duration-1000 ease-[cubic-bezier(.35,0,.65,1)] ${
-              isResultsPage ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`}  fill-secondary-gold transition-all duration-1000 
+            ease-[cubic-bezier(.35,0,.65,1)]`}
           >
             {topScore ? <Check /> : <Wrong />}
           </g>
@@ -57,4 +46,4 @@ const ResultsNodes = ({ factor, height, width }: ResultsNodesProps) => {
   )
 }
 
-export default ResultsNodes
+export default ReportNodes

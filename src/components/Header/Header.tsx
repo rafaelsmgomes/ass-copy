@@ -6,7 +6,6 @@ import { ButtonSml } from '../UI/Button/Button'
 import { useAppContext } from '../../App'
 
 const Header = () => {
-  const { setPage } = useAppContext()
   return (
     <div className='w-full bg-white py-5 shadow-md'>
       <Grid>

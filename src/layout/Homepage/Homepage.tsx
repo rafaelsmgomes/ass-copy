@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 
-import Grid from '../UI/Grid'
+import Grid from '../../components/UI/Grid'
 import homeImg from '../../assets/images/home-image.jpg'
 import vectorGroup from '../../assets/svgs/vector-group.svg'
 import vectorDown from '../../assets/svgs/vector-down.svg'
 import vectorUp from '../../assets/svgs/vector-up.svg'
-import { ButtonLg } from '../UI/Button/Button'
+import { ButtonLg } from '../../components/UI/Button/Button'
 
 import './Homepage.scss'
 

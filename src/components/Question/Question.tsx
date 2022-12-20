@@ -23,6 +23,9 @@ const Question = ({ idx, questionGroup, ...props }: QuestionProps) => {
 
   const [answerIdx, setAnswerIdx] = useState<number | undefined>(undefined)
 
+  // [0,1,2,3,4]
+  // [0,1,2]
+  // [0,50,100]
   useEffect(() => {
     if (answerIdx === undefined) return
     dispatch(
@@ -35,9 +38,9 @@ const Question = ({ idx, questionGroup, ...props }: QuestionProps) => {
   }, [answerIdx, idx, type])
 
   return (
-    <div className='absolute top-0 left-0 h-full w-1/2 bg-neutral-fog pt-[30px] pb-[100px]' {...props}>
+    <div className='absolute top-0 left-0 h-full w-1/2 bg-neutral-fog bg-opacity-20 pt-[30px] pb-[100px]' {...props}>
       <img src={imgUrl} alt='' className='question-img' />
-      <div className='relative ml-auto h-full w-[90%] bg-white py-[30px] px-[30px] shadow-question'>
+      <div className='relative ml-auto h-full w-[90%] max-w-[670px] bg-white py-[30px] px-[30px] shadow-question'>
         <Dots />
         <p className='mb-6 text-[25px] font-bold text-primary-blue'>{question}</p>
         <ul className='mb-6'>

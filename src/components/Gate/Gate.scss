@@ -1,0 +1,42 @@
+.gate {
+  @apply relative ml-auto h-full w-full bg-white py-[30px] px-5 shadow-question;
+  padding-left: max(30px, calc(100% - 670px));
+
+  &-input {
+    @apply mb-4 block w-full border-[#4d758f] border-opacity-40 p-3.5 pb-2.5 text-neutral-charcoal text-opacity-100;
+    border-radius: 4px;
+    &::placeholder {
+      @apply text-neutral-charcoal text-opacity-40;
+    }
+  }
+  &-dropdown {
+    @apply mb-4 block w-full border border-[#4d758f] border-opacity-40 p-3.5 pb-2.5 text-neutral-charcoal text-opacity-100;
+    &-title {
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 8px;
+      svg {
+        width: 10px;
+        height: 10px;
+        transform: rotate(90deg);
+      }
+    }
+  }
+}
+
+.gate-intructions {
+  @apply text-primary-blue;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.checkbox-label {
+  @apply mb-1.5 flex items-center text-sm text-[#5f6267];
+  input {
+    @apply mr-2 rounded  checked:bg-dark-grey-blue;
+    width: 18px;
+    height: 18px;
+  }
+}

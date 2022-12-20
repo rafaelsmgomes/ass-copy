@@ -6,4 +6,13 @@ import svgr from 'vite-plugin-svgr'
 export default defineConfig({
   plugins: [svgr(), react()],
   base: './',
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "./src/shared/mixins.scss";
+        `,
+      },
+    },
+  },
 })

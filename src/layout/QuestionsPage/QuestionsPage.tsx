@@ -3,8 +3,8 @@ import { useAppSelector } from '../../redux'
 import { selectQuestions } from '../../redux/questions/questionSelectors'
 import { SlidesProvider } from '../../slider/hooks/useSlider'
 import Slider from '../../slider/Slider'
-import Question from '../Question/Question'
-import SpiderGraph from '../SpiderGraph/SpiderGraph'
+import Question from '../../components/Question/Question'
+import SpiderGraph from '../../components/SpiderGraph/SpiderGraph'
 
 const QuestionsPage = () => {
   const questions = useAppSelector(selectQuestions)
