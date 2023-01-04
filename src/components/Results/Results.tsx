@@ -15,7 +15,7 @@ const Results = (props: ResultsProps) => {
   const blurbs = useAppSelector(selectBlurbs)
   const answers = useAppSelector(selectAnswers)
   return (
-    <div className='results-page relative ml-auto h-full w-full bg-white py-[30px] px-5 shadow-question'>
+    <div className='results-page relative ml-auto h-full w-full overflow-y-scroll bg-white py-[30px] px-5 shadow-question'>
       <p className='text-[14px] font-bold text-primary-green'>Your Results</p>
       <p className='leading- mb-6 text-[25px] font-bold leading-9 text-primary-blue '>
         How mature is my Supply Chain Sustainability?

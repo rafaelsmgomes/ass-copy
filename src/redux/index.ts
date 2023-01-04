@@ -3,17 +3,20 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux'
 import answerSlices from './answers/answersSlice'
 import blurbsSlice from './blurbs/blurbsSlice'
 import questionSlice from './questions/questionsSlice'
-import reportSlice from './reports/reportSlice'
+import bigBlurbSlice from './bigBlurbs/bigBlurbsSlice'
+import reportsSlice from './reports/reportsSlice'
 
 export const rootReducers = combineReducers({
   questions: questionSlice.reducer,
   answers: answerSlices.reducer,
   blurbs: blurbsSlice.reducer,
-  reports: reportSlice.reducer,
+  bigBlurbs: bigBlurbSlice.reducer,
+  reports: reportsSlice.reducer,
 })
 
 const store = configureStore({
   reducer: rootReducers,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 })
 
 export type RootState = ReturnType<typeof rootReducers>

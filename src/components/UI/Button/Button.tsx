@@ -36,3 +36,23 @@ export function ButtonLg<T extends React.ElementType = 'button'>({
     </button>
   )
 }
+
+export const ArrowLink = <T extends React.ElementType = 'a'>({
+  className,
+  children,
+  ...props
+}: ButtonProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>) => {
+  return (
+    <a
+      className={`arrow-link mt-auto flex items-center text-[17px] font-bold text-dark-grey-blue ${
+        className ? className : ''
+      }`}
+      {...props}
+    >
+      <span>{children}</span>
+      <div className='ml-2 w-4'>
+        <Arrow className='h-3 w-2 stroke-dark-grey-blue' />
+      </div>
+    </a>
+  )
+}

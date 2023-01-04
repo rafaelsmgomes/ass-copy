@@ -1,5 +1,21 @@
-☐ Work on design of question
-☐ Make questions slide left and right
-☐ Work on Spider Graph
-  ☐ See if can use Spider Graph from Visx
-  ☐ See how I can animate d3 with react
+Design:
+  ☐ Add responsive design to questions
+    ☐ Make parent height automatic
+  Reports:
+    [ ] Make responsive
+    ☐ Add animation to results
+
+QA:
+  ✔ Add Assent's feedback
+  Form:
+    ✔ Dropdown design 
+    ✔ Input design
+    ✔ Format checkbox selection
+    ☐ Hook up form to ascent
+    ☐ API format
+    ☐ React-hook-form
+      ☐ Add validation
+      ☐ Connect components
+  Book a Demo CTA:
+    ☐ Create component
+    ☐ Connect to Assent

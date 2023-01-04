@@ -1,0 +1,7 @@
+.slider {
+  --slidesHeight: 0px;
+
+  @include bp(tablet) {
+    height: calc(var(--slidesHeight));
+  }
+}

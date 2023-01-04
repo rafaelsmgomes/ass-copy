@@ -9,7 +9,7 @@ const initialState: { label: string; blurb: string }[] = [
   },
   {
     label: 'Supplier Onboarding & Engagement',
-    blurb: 'Improve supplier fatigue and response rates with centralized supplier onboarding and engagement.',
+    blurb: 'Reduce supplier fatigue and increase response rates with centralized supplier onboarding and engagement.',
   },
   {
     label: 'Data Depth',
@@ -17,7 +17,7 @@ const initialState: { label: string; blurb: string }[] = [
   },
   {
     label: 'Stakeholder Engagement',
-    blurb: 'Establish leadership support and team collaboration to move the needle.',
+    blurb: 'Establish leadership support and team collaboration to accelerate business impact.',
   },
   {
     label: 'Unified Data & Reporting',

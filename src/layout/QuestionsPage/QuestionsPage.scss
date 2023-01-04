@@ -1,0 +1,12 @@
+.questions-page {
+  @apply bg-neutral-fog bg-opacity-20;
+  position: relative;
+  display: flex;
+  min-height: calc(100vh - var(--questionsPB));
+  overflow-x: hidden;
+  padding-top: 50px;
+  padding-bottom: 24px;
+  @include bp(tablet) {
+    flex-direction: column-reverse;
+  }
+}

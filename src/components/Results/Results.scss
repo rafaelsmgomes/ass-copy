@@ -9,5 +9,13 @@
     left: 0;
     display: block;
     content: '';
+    @include bp(tablet) {
+      display: none;
+    }
+  }
+
+  @include bp(tablet) {
+    padding-left: 20px;
+    height: auto;
   }
 }

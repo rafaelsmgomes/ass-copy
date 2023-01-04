@@ -1,28 +1,44 @@
 .gate {
   @apply relative ml-auto h-full w-full bg-white py-[30px] px-5 shadow-question;
   padding-left: max(30px, calc(100% - 670px));
+  overflow-y: scroll;
 
-  &-input {
-    @apply mb-4 block w-full border-[#4d758f] border-opacity-40 p-3.5 pb-2.5 text-neutral-charcoal text-opacity-100;
-    border-radius: 4px;
-    &::placeholder {
-      @apply text-neutral-charcoal text-opacity-40;
-    }
-  }
   &-dropdown {
-    @apply mb-4 block w-full border border-[#4d758f] border-opacity-40 p-3.5 pb-2.5 text-neutral-charcoal text-opacity-100;
+    @apply border border-[#4d758f] border-opacity-40 text-neutral-charcoal text-opacity-100;
+    position: relative;
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 14px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+
     &-title {
       display: grid;
-      grid-template-columns: 1fr 34px;
+      grid-template-columns: 1fr 20px;
       align-items: center;
       cursor: pointer;
       margin-bottom: 8px;
       svg {
         width: 10px;
         height: 10px;
-        transform: rotate(90deg);
+        // transform: rotate(90deg);
       }
     }
+    &-box {
+      @apply border border-[#4d758f] border-opacity-40 bg-white;
+      position: absolute;
+      top: 100%;
+      left: -1px;
+      padding: 14px;
+      padding-bottom: 10px;
+      width: calc(100% + 2px);
+      z-index: 2;
+      border-radius: 4px;
+    }
+  }
+  @include bp(tablet) {
+    padding: 30px 20px;
   }
 }
 
@@ -38,5 +54,44 @@
     @apply mr-2 rounded  checked:bg-dark-grey-blue;
     width: 18px;
     height: 18px;
+    &:checked {
+      &:focus {
+        @apply bg-dark-grey-blue;
+      }
+      &:hover {
+        @apply bg-dark-grey-blue;
+      }
+    }
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  label {
+    @apply text-neutral-charcoal text-opacity-60;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    font-weight: 400;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+  input {
+    @apply mb-4 block w-full border-[#4d758f] border-opacity-40 p-3.5 pb-2.5 text-neutral-charcoal text-opacity-100;
+    border-radius: 4px;
+    &:focus {
+      box-shadow: 0 0 6px 0 rgba(75, 160, 152, 0.5);
+      border: solid 1px #4d758f;
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      // @apply text-primary-green;
+      top: 3px;
+      font-size: 10px;
+      font-weight: 500;
+    }
   }
 }

@@ -45,7 +45,6 @@ const answerSlices = createSlice({
 
       state.answerArr[idx] = { score: minScore, label }
       if (idx > state.answered) state.answered = idx
-      console.log(current(state))
     },
   },
 })

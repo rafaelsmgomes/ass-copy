@@ -1,9 +1,7 @@
-import * as d3 from 'd3'
-import { useState } from 'react'
-import { useAppSelector } from '../../redux'
-import { selectQuestions } from '../../redux/questions/questionSelectors'
+import { useSlider } from '../../slider/hooks/useSlider'
 import Axis from './Axis'
 import AxisLabels from './AxisLabels/AxisLabels'
+import Legend from './Legend/Legend'
 import Polygon from './Polygon'
 import ResultsNodes from './ResultNodes'
 
@@ -11,7 +9,9 @@ import './SpiderGraph.scss'
 import SpiderLines from './SpiderLines'
 import SpiderNodes from './SpiderNodes'
 
-export type SpiderGraphProps = {}
+export type SpiderGraphProps = {
+  className?: string
+}
 
 export const radians = 2 * Math.PI
 
@@ -22,9 +22,11 @@ const w = 300,
   h = 300
 const radius = normalFactor * Math.min(w / 2, h / 2)
 
-const SpiderGraph = (props: SpiderGraphProps) => {
+const SpiderGraph = ({ className }: SpiderGraphProps) => {
+  const { activeSlide, slidesCount } = useSlider()
+
   return (
-    <div className='spider '>
+    <div className={`spider ${className ? className : ''}`}>
       <svg
         viewBox={window.innerWidth <= 600 ? '0 0 475 500' : '0 0 475 465'}
         preserveAspectRatio={'xMidYMid meet'}
@@ -55,6 +57,7 @@ const SpiderGraph = (props: SpiderGraphProps) => {
           <ResultsNodes factor={normalFactor} height={h} width={w} />
         </g>
       </svg>
+      <Legend visible={activeSlide === slidesCount} />
     </div>
   )
 }

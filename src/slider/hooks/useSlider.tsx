@@ -14,6 +14,9 @@ export type SlidesType = {
   slidesCount: number
   setSlidesCount: Dispatch<SetStateAction<number>>
   visitedSlides: number
+  slidesHeight: number
+  setSlidesHeight: Dispatch<SetStateAction<number>>
+  setMaxSlidesHeight: (num: number) => void
 }
 type ArrowStatusType = 'inactive' | 'active'
 type ArrowStateType = {
@@ -26,7 +29,7 @@ const SlidesContext = createContext<SlidesType | undefined>(undefined)
 export const SlidesProvider = ({ children }: { children: ReactNode }) => {
   const questionsLength = useAppSelector(selectQuestionsLength)
 
-  const [activeSlide, setActiveSlide] = useState(0)
+  const [activeSlide, setActiveSlide] = useState(6)
   const [slidesCount, setSlidesCount] = useState(questionsLength + 2 - 1)
   const [visitedSlides, setVisitedSlides] = useState(0)
 
@@ -44,6 +47,14 @@ export const SlidesProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const [arrowStatus, setArrowStatus] = useState<ArrowStateType>({ left: 'inactive', right: 'active' })
+
+  const [slidesHeight, setSlidesHeight] = useState(0)
+  const setMaxSlidesHeight = (num: number) => {
+    setSlidesHeight((cur) => {
+      if (num > cur) return num
+      else return cur
+    })
+  }
 
   useEffect(() => {
     if (activeSlide > visitedSlides) {
@@ -66,6 +77,9 @@ export const SlidesProvider = ({ children }: { children: ReactNode }) => {
         slidesCount,
         activeSlide,
         setActiveSlide,
+        setMaxSlidesHeight,
+        setSlidesHeight,
+        slidesHeight,
       }}
     >
       {children}

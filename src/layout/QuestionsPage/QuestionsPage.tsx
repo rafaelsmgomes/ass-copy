@@ -6,10 +6,12 @@ import Slider from '../../slider/Slider'
 import Question from '../../components/Question/Question'
 import SpiderGraph from '../../components/SpiderGraph/SpiderGraph'
 
+import './QuestionsPage.scss'
+
 const QuestionsPage = () => {
   const questions = useAppSelector(selectQuestions)
   return (
-    <div className='relative min-h-[calc(100vh-86px)] overflow-x-hidden pt-[50px] pb-24'>
+    <div className='questions-page'>
       <SlidesProvider>
         <Slider
           items={questions}
@@ -22,7 +24,7 @@ const QuestionsPage = () => {
             />
           )}
         ></Slider>
-        <SpiderGraph />
+        <SpiderGraph className='tb:hidden' />
       </SlidesProvider>
     </div>
   )

@@ -1,8 +1,8 @@
 .home-box {
   @apply bg-white shadow-around;
   position: relative;
-  float: right;
-  margin-top: 100px;
+  // float: right;
+  margin-left: auto;
   width: 66%;
   padding: 30px 30px 42px 36px;
   &:after {
@@ -14,5 +14,13 @@
     left: 0;
     display: block;
     content: '';
+  }
+  @include bp(tablet) {
+    width: 600px;
+    margin: 0 auto;
+  }
+  @include bp(630) {
+    width: auto;
+    margin: 0 30px;
   }
 }

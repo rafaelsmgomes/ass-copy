@@ -27,7 +27,7 @@ const Dots = (props: DotsProps) => {
           6 === activeSlide ? 'bg-primary-blue' : 'bg-primary-green'
         }`}
         key={6}
-        onClick={() => goToStep(7)}
+        onClick={() => goToStep(6)}
         disabled={6 > visitedSlides}
       />
     </div>

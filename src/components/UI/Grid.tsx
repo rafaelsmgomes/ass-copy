@@ -8,7 +8,7 @@ export type GridProps = {
 }
 
 const Grid = ({ className, children }: GridProps) => {
-  return <div className={`layout-grid ${className ? className : ''}`}>{children}</div>
+  return <div className={`my-grid ${className ? className : ''}`}>{children}</div>
 }
 
 export default Grid

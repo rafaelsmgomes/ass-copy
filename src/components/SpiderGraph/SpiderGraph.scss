@@ -4,7 +4,15 @@
   right: 0;
   width: 50vw;
   // min-width: 625px;
-  height: 100%;
+  min-height: calc(100% - var(--questionsPB));
   background-image: linear-gradient(138deg, #2f5170 14%, #4ba098 148%);
-  padding: 92px 20px;
+  padding: 60px 20px;
+  padding-bottom: 50px;
+
+  @include bp(tablet) {
+    // display: none;
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
 }

@@ -1,20 +1,79 @@
 .score-card {
+  --score: 50%;
+
   @apply bg-opacity-50;
   position: relative;
   width: 19%;
   height: 278px;
   padding: 10px;
+  transition: all 0.3 ease-in-out;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 278px;
+    top: 0;
+    left: 0;
+    transition: all 0.3 ease-in-out;
+    opacity: 0;
+    background: linear-gradient(transparent, transparent var(--score), transparent var(--score), transparent);
+  }
+
   svg {
     float: right;
     position: absolute;
-    bottom: -52px;
-    right: 0;
+    bottom: -10px;
+    right: 10px;
     opacity: 0.25;
+    height: 210px;
+    @include bp(1100) {
+      height: 150px;
+    }
+    @include bp(890) {
+      height: 100px;
+    }
+    @include bp(md) {
+      left: 50%;
+      transform: translateX(-50%);
+      height: 70px;
+    }
   }
+
   p {
     font-size: 16px;
     font-weight: bold;
     color: white;
+
+    @include bp(md) {
+      display: none;
+    }
+  }
+
+  @include bp(md) {
+    height: 220px;
+  }
+
+  &.score {
+    svg {
+      fill: white !important;
+      opacity: 1;
+    }
+    &::before {
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        var(--primary-blue),
+        var(--primary-blue) var(--score),
+        var(--primary-green) var(--score),
+        var(--primary-green)
+      );
+      height: 300px;
+      top: -11px;
+      @include bp(md) {
+        height: 242px;
+      }
+    }
   }
 }
 
@@ -28,6 +87,9 @@
 .report-box {
   box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.1);
   padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 
   &-title {
     @apply text-neutral-charcoal;
@@ -84,4 +146,11 @@
 .cta-gradient {
   position: relative;
   background-image: linear-gradient(to right, var(--dark-grey-blue) 27%, #4ba098 148%);
+}
+
+.spider-blurb {
+  --divHeight: 0;
+  @include bp(tablet) {
+    height: var(--divHeight);
+  }
 }

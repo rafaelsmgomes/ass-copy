@@ -11,11 +11,11 @@ export const initialState: QuestionModel[] = [
   {
     question: 'Do you deeply understand all the regulations and risks affecting your business?',
     answers: [
-      'No',
+      'No.',
       'Somewhat, but not in depth.',
       'Yes, but I struggle to anticipate evolving regulations.',
       'Yes, with some ability to anticipate upcoming regulations.',
-      'Yes, I have complete insig ht into upcoming regulations to adapt quickly.',
+      'Yes, I have complete insight into upcoming regulations to adapt quickly.',
     ],
     type: 'Risk Visibility & Materiality',
     imgUrl: q1Img,
@@ -35,9 +35,9 @@ export const initialState: QuestionModel[] = [
   {
     question: 'Can you measure supply chain risks across your entire supply chain (i.e. beyond Tier 1 suppliers)?',
     answers: [
-      'No',
+      'No.',
       'Somewhat, we only have visibility into some Tier 2 suppliers.',
-      'Yes, we have visibility into our complete supply chain',
+      'Yes, we have visibility into our complete supply chain.',
     ],
     type: 'Data Depth',
     imgUrl: q3Img,
@@ -58,10 +58,10 @@ export const initialState: QuestionModel[] = [
     question: 'Do you have a connected view of all supplier data for defensible reporting?',
     answers: [
       'No, data and reporting are entirely siloed.',
-      'Somewhat, data is siloed, with minimal reporting visibility.',
-      'Mostly, our top-level data and reporting are connected; but lacking supplier level insights.',
-      'Yes, our top-level and supplier data and reporting are connected across programs and teams.',
-      'Yes, ou r top-, supplier-, and part-level data is connected and updated in real-time for complete and defensible reporting.',
+      'Somewhat, data is siloed, with minimal reporting visibility across platforms.',
+      'Mostly, most supplier data and reporting are connected, but there are gaps.',
+      'Yes, our supplier data and reporting are connected across programs.',
+      'Yes, our supplier and part-level data is connected across programs for complete and defensive reporting.',
     ],
     type: 'Unified Data & Reporting',
     imgUrl: q5Img,
