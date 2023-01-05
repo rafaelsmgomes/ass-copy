@@ -29,6 +29,7 @@ const Question = ({ idx, questionGroup, ...props }: QuestionProps) => {
         score: (100 / maxScore) * (answerIdx ?? 0),
         idx,
         label: type,
+        answerIdx,
       })
     )
   }, [answerIdx, idx, type])

@@ -126,6 +126,7 @@
     padding: 38px;
     box-shadow: 5px 5px 12px 0 rgba(0, 0, 0, 0.16);
     background-image: linear-gradient(118deg, var(--dark-grey-blue) 38%, #4ba098 152%);
+    padding-bottom: 60px;
   }
 }
 
@@ -151,6 +152,6 @@
 .spider-blurb {
   --divHeight: 0;
   @include bp(tablet) {
-    height: var(--divHeight);
+    height: calc(var(--divHeight) * 1px);
   }
 }

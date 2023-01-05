@@ -25,7 +25,6 @@ const Slider = ({ items, renderItem }: SliderProps) => {
     const childrenArr = Array.from(ref.current.children) as HTMLElement[]
 
     childrenArr.map((el, i) => {
-      console.log(el.getBoundingClientRect().height, i)
       if (i === 7)
         setHeight((cur) => (el.getBoundingClientRect().height > cur ? el.getBoundingClientRect().height : cur))
     })

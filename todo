@@ -2,8 +2,8 @@ Design:
   ☐ Add responsive design to questions
     ☐ Make parent height automatic
   Reports:
-    [ ] Make responsive
     ☐ Add animation to results
+    ☐ Make responsive
 
 QA:
   ✔ Add Assent's feedback
@@ -19,3 +19,13 @@ QA:
   Book a Demo CTA:
     ☐ Create component
     ☐ Connect to Assent
+
+
+For tomorrow:
+  ✔ Animate results from 0 to 4
+  ✔ Get Book a Demo component in
+    [ ] Hook component to Form
+  ˝☐ Prepare the data for Gate POST API
+    ☐ Need to send them 
+  ☐ Centralize the landing page
+  ✔ URL for reports page

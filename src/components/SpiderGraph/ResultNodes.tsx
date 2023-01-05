@@ -1,15 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppSelector } from '../../redux'
 import { selectAnswers } from '../../redux/answers/answerSelectors'
 import { selectQuestionsLength } from '../../redux/questions/questionSelectors'
-import { ReactComponent as SmallTriangle } from '../../assets/svgs/small-triangle.svg'
-import { ReactComponent as BigTriangle } from '../../assets/svgs/big-triangle.svg'
 import { radians } from './SpiderGraph'
-import * as d3 from 'd3'
 import { useSlider } from '../../slider/hooks/useSlider'
-import { ReactComponent as Wrong } from '../../assets/svgs/x-icon.svg'
+import { ReactComponent as Bulb } from '../../assets/svgs/bulb-icon.svg'
 import { ReactComponent as Check } from '../../assets/svgs/check-icon.svg'
-import { ScoreType } from '../../redux/answers/answersSlice'
 
 export type ResultsNodesProps = {
   width: number
@@ -49,7 +45,7 @@ const ResultsNodes = ({ factor, height, width }: ResultsNodesProps) => {
               isResultsPage ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {topScore ? <Check /> : <Wrong />}
+            {topScore ? <Check /> : <Bulb height={19} width={19} />}
           </g>
         )
       })}

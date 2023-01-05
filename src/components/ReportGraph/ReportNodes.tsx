@@ -3,7 +3,7 @@ import { useAppSelector } from '../../redux'
 import { selectAnswers } from '../../redux/answers/answerSelectors'
 import { selectQuestionsLength } from '../../redux/questions/questionSelectors'
 import { useSlider } from '../../slider/hooks/useSlider'
-import { ReactComponent as Wrong } from '../../assets/svgs/x-icon.svg'
+import { ReactComponent as Bulb } from '../../assets/svgs/bulb-icon.svg'
 import { ReactComponent as Check } from '../../assets/svgs/check-icon.svg'
 import { radians } from '../SpiderGraph/SpiderGraph'
 
@@ -38,7 +38,7 @@ const ReportNodes = ({ factor, height, width }: ReportNodesProps) => {
             className={`}  fill-secondary-gold transition-all duration-1000 
             ease-[cubic-bezier(.35,0,.65,1)]`}
           >
-            {topScore ? <Check /> : <Wrong />}
+            {topScore ? <Check /> : <Bulb height={19} width={19} />}
           </g>
         )
       })}

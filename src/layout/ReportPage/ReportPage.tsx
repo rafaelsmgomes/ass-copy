@@ -1,6 +1,6 @@
 import { ArrowLink, ButtonLg } from '../../components/UI/Button/Button'
 import Grid from '../../components/UI/Grid'
-
+import gsap from 'gsap'
 import { ReactComponent as SustainabilityScale } from '../../assets/svgs/sustainability-scale.svg'
 import { ReactComponent as Zero } from '../../assets/svgs/0.svg'
 import { ReactComponent as One } from '../../assets/svgs/1.svg'
@@ -19,13 +19,17 @@ import vectorsRight from '../../assets/svgs/vector-cta-right.svg'
 import './ReportPage.scss'
 import ReportGraph from '../../components/ReportGraph/ReportGraph'
 import { createMyContext } from '../../utils/create-context'
-import { CSSProperties, Dispatch, SetStateAction, useLayoutEffect, useRef, useState } from 'react'
+import { CSSProperties, Dispatch, SetStateAction, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ReportDots from '../../components/ReportGraph/ReportDots'
-import { useAppSelector } from '../../redux'
+import { useAppDispatch, useAppSelector } from '../../redux'
 import { selectBigBlurbs } from '../../redux/bigBlurbs/bigBlurbsSlice'
 import { selectAnswersArr } from '../../redux/answers/answerSelectors'
 import { ReportsSliceType } from '../../redux/reports/reportsState'
 import { selectReports } from '../../redux/reports/reportsSlice'
+import Legend from '../../components/SpiderGraph/Legend/Legend'
+import { useLocation, useSearchParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import answerSlices from '../../redux/answers/answersSlice'
 
 type ReportSlidesType = {
   slide: number
@@ -37,10 +41,19 @@ export const useReportSlide = useContext
 
 const ReportPage = () => {
   const [slide, setSlide] = useState(0)
+
   const blurbs = useAppSelector(selectBigBlurbs)
   const answersArr = useAppSelector(selectAnswersArr)
   const score = answersArr.reduce((acc, cur) => (acc += cur.score), 0) / answersArr.length
+
   const reportsBlurbs = useAppSelector(selectReports)
+  const location = useLocation()
+  const [searchParams] = useSearchParams()
+  const answersScores: number[] = []
+  searchParams.forEach((el) => {
+    answersScores.push(parseInt(el))
+  })
+  const dispatch = useAppDispatch()
 
   let [low, med, average, high, top] = [false, false, false, false, false]
   let scoreKey: keyof ReportsSliceType = 'low'
@@ -54,7 +67,7 @@ const ReportPage = () => {
   } else if (score > 63 && score <= 85) {
     average = true
     scoreKey = 'average'
-  } else if (score > 85 && score <= 95) {
+  } else if (score > 85 && score <= 99) {
     high = true
     scoreKey = 'high'
   } else if (score > 99) {
@@ -71,6 +84,21 @@ const ReportPage = () => {
       const elHeight = el.getBoundingClientRect().height
       setDivHeight((cur) => (elHeight > cur ? elHeight : cur))
     })
+  }, [])
+
+  const gsapRef = useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(gsapRef.current!.children, { delay: 0.5, stagger: 0.2, opacity: 0, y: -20 })
+    })
+    return () => ctx.revert()
+  }, [])
+
+  useEffect(() => {
+    console.log(location)
+    if (location.search) {
+      dispatch(answerSlices.actions.updateAnswers({ answerScores: answersScores }))
+    }
   }, [])
 
   return (
@@ -95,7 +123,7 @@ const ReportPage = () => {
           <div className='mb-4 flex w-full justify-between'>
             <div className='mb-6 w-full'>
               <div className='mb-8 h-[278px] md:h-[220px]'>
-                <div className='mb-4 flex w-full justify-between '>
+                <div className='mb-4 flex w-full justify-between ' ref={gsapRef}>
                   <div
                     className={`score-card  bg-[#bababa] ${low ? 'score' : ''} `}
                     style={{ '--score': `${score}%` } as CSSProperties}
@@ -180,7 +208,7 @@ const ReportPage = () => {
           <img src={vectorsImg} alt='' className='absolute bottom-0 left-0 z-10 object-contain' />
           <Grid>
             <div className='flex w-full gap-4 tb:flex-col-reverse'>
-              <div className='w-1/2 shrink-0 tb:w-full'>
+              <div className='relative z-10 w-1/2 shrink-0 tb:w-full'>
                 <h2 className='mb-8 text-[40px] font-bold text-white tb:hidden'>
                   Supply Chain Sustainability Breakdown
                 </h2>
@@ -193,7 +221,7 @@ const ReportPage = () => {
                   {blurbs.map(({ blurb, label }, i) => (
                     <div
                       key={i}
-                      className={`absolute top-0 left-0 transition-opacity duration-300 ease-in-out${
+                      className={`absolute top-0 left-0 transition-opacity duration-300 ease-in-out ${
                         slide === i ? 'opacity-100' : 'opacity-0'
                       }`}
                     >
@@ -211,6 +239,7 @@ const ReportPage = () => {
               </div>
             </div>
           </Grid>
+          <Legend visible className='legend-reports' />
         </div>
         <div className='pt-7 pb-14'>
           <Grid>

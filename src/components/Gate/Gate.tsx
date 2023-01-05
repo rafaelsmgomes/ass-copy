@@ -1,11 +1,16 @@
+import { useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+
 import { useSlider } from '../../slider/hooks/useSlider'
-import { useForm, SubmitHandler, UseFormRegister } from 'react-hook-form'
 import Dots from '../Dots/Dots'
 import { ButtonLg } from '../UI/Button/Button'
+import { useAppSelector } from '../../redux'
+import { selectAnswersArr } from '../../redux/answers/answerSelectors'
+import { Input } from '../Form/Input'
+
 import { ReactComponent as Arrow } from '../../assets/svgs/arrow-down.svg'
 
 import './Gate.scss'
-import React, { ReactElement, useState } from 'react'
 
 export type GateProps = {}
 
@@ -18,12 +23,26 @@ type InputsType = {
 
 const Gate = (props: GateProps) => {
   const { nextStep } = useSlider()
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<InputsType>()
+
+  const answers = useAppSelector(selectAnswersArr)
+  const queries = () => {
+    let str = ''
+    answers.forEach((el, i) => {
+      if (i === answers.length - 1) {
+        str += `${i}=${el.score}`
+      } else {
+        str += `${i}=${el.score}&`
+      }
+    })
+    return str
+  }
 
   const [first, setFirst] = useState(false)
   const [second, setSecond] = useState(false)
@@ -142,36 +161,16 @@ const Gate = (props: GateProps) => {
           </div>
         </div>
       </form>
-      <ButtonLg onClick={() => nextStep()}>Submit and View My Results</ButtonLg>
+      <ButtonLg
+        onClick={() => {
+          nextStep()
+          console.log(`${window.location.origin}/#/report?${queries()}`)
+        }}
+      >
+        Submit and View My Results
+      </ButtonLg>
     </div>
   )
 }
 
 export default Gate
-
-const Input = ({
-  label,
-  register,
-  required,
-  labelText,
-  ...props
-}: {
-  required?: boolean
-  register: UseFormRegister<InputsType>
-  label: keyof InputsType
-  labelText: string
-} & React.HTMLProps<HTMLInputElement>) => {
-  const [isFocus, setIsFocus] = useState(false)
-  return (
-    <div className='input-wrapper'>
-      <input
-        {...register(label, { required })}
-        {...props}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        placeholder=' '
-      />
-      <label className={`input-label ${isFocus ? 'focused' : ''}`}>{labelText}</label>
-    </div>
-  )
-}
