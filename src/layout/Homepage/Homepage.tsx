@@ -70,35 +70,37 @@ const Homepage = (props: any) => {
   return (
     <div className='max-h-auto relative min-h-[calc(100vh-72px)] pt-[50px] pb-24 tb:pt-0'>
       <img src={vectorGroup} alt='' className='absolute bottom-0 right-0' />
-      <Grid className='relative pt-[100px] tb:m-0 tb:pt-2.5'>
-        <div className='absolute top-0 left-0 w-3/4 object-cover tb:h-[385px] tb:w-full '>
-          <img
-            src={vectorDown}
-            alt=''
-            className='absolute -right-16 -top-8 h-[127px] w-[107px] object-contain tb:hidden'
-          />
-          <img
-            src={vectorUp}
-            alt=''
-            className='absolute -left-16 -bottom-8 h-[127px] w-[107px] object-contain tb:hidden'
-          />
-          <img
-            src={homeImg}
-            alt=''
-            className='md: relative aspect-[20/9] w-full object-cover tb:aspect-auto tb:h-full'
-          />
-        </div>
-        <div className='home-box'>
-          <p className='mb-1 text-sm font-bold text-primary-green tb:text-lg'>Maturity Assessment</p>
-          <h1 className='mb-[18px] text-[50px] font-bold leading-[58px] text-primary-blue tb:text-3xl'>
-            Your Journey to Supply Chain Sustainability
-          </h1>
-          <div className='mb-5' ref={ref}>
-            {renderParagraphs}
+      <Grid className='relative flex h-[calc(100vh-250px)] flex-col justify-center pt-10  tb:m-0 tb:h-auto tb:pt-2.5 tb:pt-0'>
+        <div className='relative pt-[100px] tb:pt-2.5'>
+          <div className='absolute top-0 left-0 w-3/4 object-cover tb:h-[385px] tb:w-full '>
+            <img
+              src={vectorDown}
+              alt=''
+              className='absolute -right-16 -top-8 h-[127px] w-[107px] object-contain tb:hidden'
+            />
+            <img
+              src={vectorUp}
+              alt=''
+              className='absolute -left-16 -bottom-8 h-[127px] w-[107px] object-contain tb:hidden'
+            />
+            <img
+              src={homeImg}
+              alt=''
+              className='md: relative aspect-[20/9] w-full object-cover tb:aspect-auto tb:h-full'
+            />
           </div>
-          <ButtonLg className='' onClick={() => navigate('/questions')}>
-            Get Started
-          </ButtonLg>
+          <div className='home-box'>
+            <p className='mb-1 text-sm font-bold text-primary-green tb:text-lg'>Maturity Assessment</p>
+            <h1 className='mb-[18px] text-[50px] font-bold leading-[58px] text-primary-blue tb:text-3xl'>
+              Your Journey to Supply Chain Sustainability
+            </h1>
+            <div className='mb-5' ref={ref}>
+              {renderParagraphs}
+            </div>
+            <ButtonLg className='' onClick={() => navigate('/questions')}>
+              Get Started
+            </ButtonLg>
+          </div>
         </div>
       </Grid>
     </div>
