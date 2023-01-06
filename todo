@@ -1,9 +1,9 @@
 Design:
   ☐ Add responsive design to questions
     ☐ Make parent height automatic
-  Reports:
-    ☐ Add animation to results
-    ☐ Make responsive
+  Reponsive:
+    ☐ Questions height
+    ☐ Reports page
 
 QA:
   ✔ Add Assent's feedback
@@ -12,20 +12,26 @@ QA:
     ✔ Input design
     ✔ Format checkbox selection
     ☐ Hook up form to ascent
-    ☐ API format
-    ☐ React-hook-form
-      ☐ Add validation
+    ✘ API format
+    ✔ React-hook-form
+      ✔ Add validation
+        ✔ Use Zod
+        ✔ Rename fields
       ☐ Connect components
   Book a Demo CTA:
-    ☐ Create component
+    ✔ Create component
     ☐ Connect to Assent
 
 
-For tomorrow:
+For tomorrow: 
   ✔ Animate results from 0 to 4
   ✔ Get Book a Demo component in
-    [ ] Hook component to Form
-  ˝☐ Prepare the data for Gate POST API
+    ✔ Hook component to Form
+  ☐ ˝Prepare the data for Gate POST API 
     ☐ Need to send them 
   ☐ Centralize the landing page
   ✔ URL for reports page
+
+
+For launch:
+  ✔ Add scripts sent by Assent 

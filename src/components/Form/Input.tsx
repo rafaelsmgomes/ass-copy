@@ -1,31 +1,15 @@
-import { UseFormRegister, FieldValues, Path, UnPackAsyncDefaultValues } from 'react-hook-form'
-import React, { useState } from 'react'
+import React, { ComponentPropsWithRef, useState } from 'react'
 
 import './Input.scss'
 
-export const Input = <T extends FieldValues>({
-  label,
-  register,
-  required,
-  labelText,
-  ...props
-}: {
-  required?: boolean
-  register: UseFormRegister<T>
-  label: Path<UnPackAsyncDefaultValues<T>>
-  labelText: string
-} & React.HTMLProps<HTMLInputElement>) => {
-  const [isFocus, setIsFocus] = useState(false)
-  return (
-    <div className='input-wrapper'>
-      <input
-        {...register(label, { required })}
-        {...props}
-        onFocus={() => setIsFocus(true)}
-        onBlur={() => setIsFocus(false)}
-        placeholder=' '
-      />
-      <label className={`input-label ${isFocus ? 'focused' : ''}`}>{labelText}</label>
-    </div>
-  )
-}
+export const Input = React.forwardRef<HTMLInputElement, { labelText: string } & ComponentPropsWithRef<'input'>>(
+  ({ labelText, ...props }, ref) => {
+    const [isFocus, setIsFocus] = useState(false)
+    return (
+      <div className='input-wrapper'>
+        <input onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)} placeholder=' ' {...props} ref={ref} />
+        <label className={`input-label ${isFocus ? 'focused' : ''}`}>{labelText}</label>
+      </div>
+    )
+  }
+)

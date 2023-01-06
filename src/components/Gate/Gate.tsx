@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import z from 'zod'
 
 import { useSlider } from '../../slider/hooks/useSlider'
 import Dots from '../Dots/Dots'
@@ -11,15 +13,21 @@ import { Input } from '../Form/Input'
 import { ReactComponent as Arrow } from '../../assets/svgs/arrow-down.svg'
 
 import './Gate.scss'
+import axios from 'axios'
+
+type Schema = {
+  FirstName: string
+  LastName: string
+  Email: string
+  Title: string
+  Organizational_Pressures: string[]
+  Operational_Region: string
+  Supply_Chain_Program_Owner: string
+  Maturity_Model_Result: number[]
+  Maturity_Model_Variable_Link: string
+}
 
 export type GateProps = {}
-
-type InputsType = {
-  firstName: string
-  lastName: string
-  email: string
-  jobTitle: string
-}
 
 const Gate = (props: GateProps) => {
   const { nextStep } = useSlider()
@@ -29,7 +37,7 @@ const Gate = (props: GateProps) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<InputsType>()
+  } = useForm<Schema>()
 
   const answers = useAppSelector(selectAnswersArr)
   const queries = () => {
@@ -48,7 +56,12 @@ const Gate = (props: GateProps) => {
   const [second, setSecond] = useState(false)
   const [third, setThird] = useState(false)
 
-  const onSubmit: SubmitHandler<InputsType> = (data) => {}
+  const onSubmit = (d: FieldValues) => {
+    const userLink = `${window.location.origin}/#/report?${queries()}`
+    console.log({ d })
+    console.log(userLink)
+    axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
+  }
 
   return (
     <div className='gate'>
@@ -59,12 +72,12 @@ const Gate = (props: GateProps) => {
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-4 flex justify-between gap-4'>
-          <Input type='text' register={register} label='firstName' labelText='First name' />
-          <Input type='text' register={register} label='lastName' labelText='Last name' />
+          <Input type='text' {...register('FirstName', { required: true })} labelText='First name' />
+          <Input type='text' {...register('LastName', { required: true })} labelText='Last name' />
         </div>
         <div className='mb-4 flex justify-between gap-4'>
-          <Input type='email' register={register} label='email' labelText='Business email' />
-          <Input type='text' register={register} label='jobTitle' labelText='Job title' />
+          <Input type='email' {...register('Email', { required: true })} labelText='Business email' />
+          <Input type='text' {...register('Title')} labelText='Job title' />
         </div>
 
         <div className='gate-dropdown'>
@@ -75,23 +88,53 @@ const Gate = (props: GateProps) => {
           <div className={`${first ? 'block' : 'hidden'} gate-dropdown-box`}>
             <p className='gate-intructions'>(Select all that apply)</p>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                id=''
+                className=''
+                {...register('Organizational_Pressures')}
+                value='Customer demands'
+              />
               Customer demands
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                {...register('Organizational_Pressures')}
+                id=''
+                className=''
+                value='Regulatory requirements'
+              />
               Regulatory requirements
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                {...register('Organizational_Pressures')}
+                id=''
+                className=''
+                value='Investor pressures'
+              />
               Investor pressures
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                {...register('Organizational_Pressures')}
+                id=''
+                className=''
+                value='Leadership expectations'
+              />
               Leadership expectations
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                {...register('Organizational_Pressures')}
+                id=''
+                className=''
+                value="Other / Doesn't exist"
+              />
               Other / Doesn't exist
             </label>
           </div>
@@ -160,15 +203,10 @@ const Gate = (props: GateProps) => {
             </label>
           </div>
         </div>
+        <ButtonLg type='submit' as='input' className='bg-bruise'>
+          Submit and View My Results
+        </ButtonLg>
       </form>
-      <ButtonLg
-        onClick={() => {
-          nextStep()
-          console.log(`${window.location.origin}/#/report?${queries()}`)
-        }}
-      >
-        Submit and View My Results
-      </ButtonLg>
     </div>
   )
 }
