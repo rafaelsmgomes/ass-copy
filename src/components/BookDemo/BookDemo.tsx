@@ -10,12 +10,12 @@ import { ButtonLg } from '../UI/Button/Button'
 export type BookDemoProps = {}
 
 type InputsType = {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  company: string
-  jobTitle: string
+  FirstName: string
+  LastName: string
+  Email: string
+  Phone: string
+  Company: string
+  Title: string
 }
 
 const BookDemo = (props: BookDemoProps) => {
@@ -41,16 +41,16 @@ const BookDemo = (props: BookDemoProps) => {
             </p>
           </div>
           <div className='flex gap-4'>
-            <Input register={register} labelText='First Name*' label='firstName' />
-            <Input register={register} labelText='Lirst Name*' label='lastName' />
+            <Input labelText='First Name*' {...register('FirstName', { required: true })} />
+            <Input {...register('LastName', { required: true })} labelText='Lirst Name*' />
           </div>
-          <Input register={register} type='email' labelText='Business email*' label='email' />
+          <Input {...register('Email', { required: true })} type='email' labelText='Business email*' />
           <div className='flex gap-4'>
-            <Input register={register} labelText='Company*' label='company' />
-            <Input register={register} labelText='Phone' label='phone' />
+            <Input {...register('Company', { required: true })} labelText='Company*' />
+            <Input {...register('Phone', { required: true })} labelText='Phone' />
           </div>
           <SelectRole className='w-full' />
-          <Input register={register} labelText='Job title' label='jobTitle' />
+          <Input {...register('Title', { required: true })} labelText='Job title' />
           <SelectCountry />
           <p className='mb-4 font-nunito text-base text-neutral-charcoal'>
             By submitting this form, I consent to be contacted by Assent, which includes receiving Assent's eNewsletter

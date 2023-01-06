@@ -61,6 +61,7 @@ const Gate = (props: GateProps) => {
     console.log({ d })
     console.log(userLink)
     axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
+    nextStep()
   }
 
   return (
