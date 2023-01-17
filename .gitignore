@@ -23,6 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*.zip
 
 # Other packages
 gsap-bonus.tgz
