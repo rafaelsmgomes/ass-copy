@@ -14,12 +14,28 @@ import { ReactComponent as Arrow } from '../../assets/svgs/arrow-down.svg'
 
 import './Gate.scss'
 import axios from 'axios'
-
+import { ScoreType } from '../../redux/answers/answersSlice'
+export const queriesBuilder = (arr: ScoreType[]) => {
+  let str = ''
+  arr.forEach((el, i) => {
+    if (i === arr.length - 1) {
+      str += `${i}=${el.score}`
+    } else {
+      str += `${i}=${el.score}&`
+    }
+  })
+  return str
+}
 type Schema = {
   FirstName: string
   LastName: string
   Email: string
   Title: string
+  utm_term: string
+  utm_region: string
+  utm_channel: string
+  utm_content: string
+  ReferringPage: string
   Organizational_Pressures: string[]
   Operational_Region: string
   Supply_Chain_Program_Owner: string
@@ -40,24 +56,13 @@ const Gate = (props: GateProps) => {
   } = useForm<Schema>()
 
   const answers = useAppSelector(selectAnswersArr)
-  const queries = () => {
-    let str = ''
-    answers.forEach((el, i) => {
-      if (i === answers.length - 1) {
-        str += `${i}=${el.score}`
-      } else {
-        str += `${i}=${el.score}&`
-      }
-    })
-    return str
-  }
 
   const [first, setFirst] = useState(false)
   const [second, setSecond] = useState(false)
   const [third, setThird] = useState(false)
 
   const onSubmit = (d: FieldValues) => {
-    const userLink = `${window.location.origin}/#/report?${queries()}`
+    const userLink = `${window.location.origin}/#/report?${queriesBuilder(answers)}`
     console.log({ d })
     console.log(userLink)
     axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
@@ -72,15 +77,25 @@ const Gate = (props: GateProps) => {
         Tell us a bit more about you and your business to view your results.
       </p>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='mb-4 flex justify-between gap-4'>
-          <Input type='text' {...register('FirstName', { required: true })} labelText='First name' />
-          <Input type='text' {...register('LastName', { required: true })} labelText='Last name' />
+        <div className='grid grid-cols-2 justify-between gap-4'>
+          <Input
+            type='text'
+            {...register('FirstName', { required: true })}
+            labelText='First name'
+            id='pardot_firstname'
+          />
+          <Input type='text' {...register('LastName', { required: true })} labelText='Last name' id='pardot_lastname' />
         </div>
-        <div className='mb-4 flex justify-between gap-4'>
-          <Input type='email' {...register('Email', { required: true })} labelText='Business email' />
-          <Input type='text' {...register('Title')} labelText='Job title' />
+        <div className='grid grid-cols-2 gap-4'>
+          <Input type='email' {...register('Email', { required: true })} labelText='Business email' id='pardot_email' />
+          <Input type='text' {...register('Title')} labelText='Job title' id='pardot_job_title' />
         </div>
-
+        {/* REF - hidden inputs */}
+        <input type='hidden' {...register('utm_term')} id='pardot_utm_term' value='' />
+        <input type='hidden' {...register('utm_region')} id='pardot_utm_region' value='' />
+        <input type='hidden' {...register('utm_channel')} id='pardot_utm_channel' value='' />
+        <input type='hidden' {...register('utm_content')} id='pardot_utm_content' value='' />
+        <input type='hidden' {...register('ReferringPage')} id='pardot_refering_page' value='' />
         <div className='gate-dropdown'>
           <div className='gate-dropdown-title' onClick={() => setFirst((cur) => !cur)}>
             <span>What pressures impact your organization the most?</span>
@@ -151,23 +166,29 @@ const Gate = (props: GateProps) => {
               apply)
             </p>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='checkbox' id='' className='' {...register('Operational_Region')} value='EMEA' />
               EMEA
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='checkbox' {...register('Operational_Region')} id='' className='' value='APAC' />
               APAC
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='checkbox' {...register('Operational_Region')} id='' className='' value={'Americas'} />
               Americas
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='checkbox' {...register('Operational_Region')} id='' className='' value={'Africa'} />
               Africa
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='checkbox'
+                {...register('Operational_Region')}
+                id=''
+                className=''
+                value={`Other / Doesn't exist`}
+              />
               Other / Doesn't exist
             </label>
           </div>
@@ -179,27 +200,37 @@ const Gate = (props: GateProps) => {
           </div>
           <div className={`${third ? 'block' : 'hidden'} gate-dropdown-box`}>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='radio' {...register('Supply_Chain_Program_Owner')} className='' value={`Procurement`} />
               Procurement
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='radio' {...register('Supply_Chain_Program_Owner')} className='' value={`Supply Chain`} />
               Supply Chain
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='radio' {...register('Supply_Chain_Program_Owner')} className='' value={`Sustainability`} />
               Sustainability
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='radio'
+                {...register('Supply_Chain_Program_Owner')}
+                className=''
+                value={`Quality & Engineering`}
+              />
               Quality & Engineering
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input type='radio' {...register('Supply_Chain_Program_Owner')} className='' value={`Legal`} />
               Legal
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' name='' id='' className='' />
+              <input
+                type='radio'
+                {...register('Supply_Chain_Program_Owner')}
+                className=''
+                value={`Other / Doesn't exist`}
+              />
               Other / Doesn't exist
             </label>
           </div>

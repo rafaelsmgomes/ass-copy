@@ -45,7 +45,7 @@ const ResultsNodes = ({ factor, height, width }: ResultsNodesProps) => {
               isResultsPage ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            {topScore ? <Check /> : <Bulb height={19} width={19} />}
+            {topScore ? <Check height={19} width={19} /> : <Bulb height={20} width={20} />}
           </g>
         )
       })}

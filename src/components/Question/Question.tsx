@@ -37,7 +37,7 @@ const Question = ({ idx, questionGroup, ...props }: QuestionProps) => {
   return (
     <div className='question' {...props}>
       <img src={imgUrl} alt='' className='question-img' />
-      <div className='relative ml-auto h-full w-[90%] max-w-[670px] bg-white py-[30px] px-[30px] pb-0 shadow-question tb:w-full tb:max-w-none'>
+      <div className='relative ml-auto h-full w-[90%] max-w-[670px] bg-white py-[30px] px-[30px] pb-0 shadow-question tb:w-full tb:max-w-none '>
         <Dots />
         <p className='mb-6 text-[25px] font-bold text-primary-blue'>{question}</p>
         <ul className='mb-6'>

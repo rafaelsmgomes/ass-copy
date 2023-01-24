@@ -1,10 +1,10 @@
 .book-demo {
-  width: 400px;
-  border-radius: 10px;
+  // overflow: hidden;
   background-color: white;
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  padding: 20px 50px 40px;
 
   select {
     -moz-appearance: none;
@@ -43,5 +43,25 @@
       box-shadow: 0 0 6px 0 rgba(75, 160, 152, 0.5);
       outline: none;
     }
+  }
+}
+
+.book-content {
+  position: absolute;
+  max-height: 98vh;
+  max-width: 90vw;
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  width: 500px;
+  padding: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: 'translate(-50%, -50%)';
+
+  @include bp(tablet) {
+    overflow-y: scroll;
   }
 }

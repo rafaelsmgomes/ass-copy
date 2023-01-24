@@ -1,19 +1,20 @@
 import { useAppSelector } from '../../redux'
-import { selectAnswers } from '../../redux/answers/answerSelectors'
+import { selectAnswers, selectAnswersArr } from '../../redux/answers/answerSelectors'
 import { selectBlurbs } from '../../redux/blurbs/blurbsSlice'
 import { ButtonLg } from '../UI/Button/Button'
-import { ReactComponent as RedX } from '../../assets/svgs/x-icon.svg'
+import { ReactComponent as Bulb } from '../../assets/svgs/bulb-icon.svg'
 import { ReactComponent as Check } from '../../assets/svgs/check-icon.svg'
 
 import './Results.scss'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { queriesBuilder } from '../Gate/Gate'
 
 export type ResultsProps = {}
 
 const Results = (props: ResultsProps) => {
   const navigate = useNavigate()
   const blurbs = useAppSelector(selectBlurbs)
-  const answers = useAppSelector(selectAnswers)
+  const answers = useAppSelector(selectAnswersArr)
   return (
     <div className='results-page relative ml-auto h-full w-full overflow-y-scroll bg-white py-[30px] px-5 shadow-question'>
       <p className='text-[14px] font-bold text-primary-green'>Your Results</p>
@@ -22,10 +23,14 @@ const Results = (props: ResultsProps) => {
       </p>
       <div className='mb-5'>
         {blurbs.map(({ label, blurb }, i) => {
-          const topScore = answers.answerArr[i].score === 100
+          const topScore = answers[i].score === 100
           return (
             <div className='mb-2.5 flex' key={i}>
-              {topScore ? <Check className='mt-0.5 mr-3' /> : <RedX className='mt-0.5 mr-3' />}
+              {topScore ? (
+                <Check className='mt-0.5 mr-3' height={19} width={19} />
+              ) : (
+                <Bulb className='mt-0.5 mr-3' height={20} width={20} />
+              )}
               <div>
                 <p className={`text-sm font-bold  ${topScore ? 'text-primary-green' : 'text-neutral-charcoal'} `}>
                   {label}
@@ -42,9 +47,9 @@ const Results = (props: ResultsProps) => {
           )
         })}
       </div>
-      <ButtonLg onClick={() => navigate('/report')}>View Detailed Results</ButtonLg>
+      <ButtonLg onClick={() => navigate(`/report?${queriesBuilder(answers)}`)}>View Detailed Results</ButtonLg>
     </div>
   )
 }
-
+// http://localhost:5173/#/report
 export default Results

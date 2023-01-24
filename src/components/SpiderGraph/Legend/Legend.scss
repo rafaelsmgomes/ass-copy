@@ -1,21 +1,27 @@
-.legend {
-  @apply bg-white bg-opacity-10;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-right: max(30px, calc(100% - 670px));
-  p {
-    color: white;
-    font-size: 14px;
-  }
+@tailwind components;
+@layer components {
+  .legend {
+    @apply bg-white bg-opacity-10;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: max(30px, calc(100% - 670px));
+    p {
+      color: white;
+      font-size: 14px;
+    }
+    @include bp(tablet) {
+      padding-right: 0;
+    }
 
-  &.legend-reports {
-    // width: 50%;
-    // left: auto;
-    // right: 0;
-    padding: 20px 0;
+    &.legend-reports {
+      // width: 50%;
+      // left: auto;
+      // right: 0;
+      padding: 20px 0;
+    }
   }
 }

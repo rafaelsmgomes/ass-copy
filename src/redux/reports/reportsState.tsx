@@ -126,7 +126,7 @@ export const initialState: ReportsSliceType = {
         However, there is still work to be done. Supply chain disruption is the 'new normal', causing risk and limiting
         your growth.
       </p>,
-      <p className='reports-copy' key={2}>
+      <p className='report-copy' key={2}>
         Based on your results, your organization is industry-leading, with deep supply chain sustainability management
         as a core differentiator and competitive advantage.
       </p>,

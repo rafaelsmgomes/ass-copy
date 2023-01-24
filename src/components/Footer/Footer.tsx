@@ -12,16 +12,22 @@ const Footer = (props: FooterProps) => {
       <Grid>
         <div className='flex w-full items-center justify-between'>
           <p className='font-nunito text-sm text-white'>© 2023 Assent Inc.</p>
-          <div className='flex items-center gap-5'>
-            <button>
+          <div className='flex items-center space-x-5'>
+            {/* FIXME - update with actual URL of tool */}
+            <a
+              href='http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fassent.com&title='
+              target={'_blank'}
+            >
               <Linkedin />
-            </button>
-            <button>
+            </a>
+            {/* FIXME - update with actual URL of tool */}
+            <a href='https://twitter.com/intent/tweet?url=https%3A%2F%2Fassent.com&text=' target={'_blank'}>
               <Twitter />
-            </button>
-            <button>
+            </a>
+            {/* FIXME - update with actual URL of tool */}
+            <a href='https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fassent.com' target='_blank'>
               <Facebook />
-            </button>
+            </a>
           </div>
         </div>
       </Grid>

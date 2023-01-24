@@ -55,12 +55,13 @@ const answerSlices = createSlice({
 
       state.answerArr[idx] = { score: minScore, label, answerIdx }
       if (idx > state.answered) state.answered = idx
-      console.log(current(state))
     },
     updateAnswers: (state, action: PayloadAction<{ answerScores: number[] }>) => {
       const { answerScores } = action.payload
       state.answerArr.map((el, i) => (el.score = answerScores[i]))
-      console.log(current(state))
+    },
+    clearScore: (state) => {
+      state.answerArr.map((el) => (el.score = 0))
     },
   },
 })

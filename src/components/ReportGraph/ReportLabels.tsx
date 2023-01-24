@@ -26,7 +26,7 @@ const ReportLabels = ({ factor, height, width }: ReportLabelsProps) => {
             key={i}
             y={(height / 2) * (1 - factor * 1.1 * Math.cos((-i * radians) / total))}
             x={(width / 2) * (1 - factor * Math.sin((-i * radians) / total))}
-            className={`axis-labels cursor-pointer   transition-all duration-300 ${
+            className={`axis-labels cursor-pointer   transition-all duration-300 hover:opacity-50 ${
               slide !== i ? 'fill-white underline' : 'fill-secondary-gold'
             }`}
             onClick={() => setSlide(i)}

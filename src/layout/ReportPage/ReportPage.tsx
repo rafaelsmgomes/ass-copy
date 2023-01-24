@@ -1,6 +1,8 @@
 import { ArrowLink, ButtonLg } from '../../components/UI/Button/Button'
 import Grid from '../../components/UI/Grid'
 import gsap from 'gsap'
+import Modal from 'react-modal'
+
 import { ReactComponent as SustainabilityScale } from '../../assets/svgs/sustainability-scale.svg'
 import { ReactComponent as Zero } from '../../assets/svgs/0.svg'
 import { ReactComponent as One } from '../../assets/svgs/1.svg'
@@ -28,8 +30,9 @@ import { ReportsSliceType } from '../../redux/reports/reportsState'
 import { selectReports } from '../../redux/reports/reportsSlice'
 import Legend from '../../components/SpiderGraph/Legend/Legend'
 import { useLocation, useSearchParams } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import answerSlices from '../../redux/answers/answersSlice'
+import BookDemo from '../../components/BookDemo/BookDemo'
+import { useWindowWidth } from '../../hooks/useWindowWidth'
 
 type ReportSlidesType = {
   slide: number
@@ -39,7 +42,15 @@ type ReportSlidesType = {
 const [useContext, ReportSlidesProvider] = createMyContext<ReportSlidesType>()
 export const useReportSlide = useContext
 
+const customStyles: Modal.Styles = {
+  overlay: {
+    backgroundColor: 'rgba(0,0,0 , .4)',
+    zIndex: 1000,
+  },
+}
+
 const ReportPage = () => {
+  const [modalIsOpen, setmodalIsOpen] = useState(false)
   const [slide, setSlide] = useState(0)
 
   const blurbs = useAppSelector(selectBigBlurbs)
@@ -74,20 +85,21 @@ const ReportPage = () => {
     top = true
     scoreKey = 'top'
   }
-
+  const windowWidth = useWindowWidth()
   const ref = useRef<HTMLDivElement>(null)
   const [divHeight, setDivHeight] = useState(0)
   useLayoutEffect(() => {
     if (!ref.current) return
     const childArr = Array.from(ref.current.childNodes) as HTMLElement[]
     childArr.forEach((el) => {
-      const elHeight = el.getBoundingClientRect().height
+      const elHeight = el.getBoundingClientRect().height + 60
       setDivHeight((cur) => (elHeight > cur ? elHeight : cur))
     })
-  }, [])
+  }, [windowWidth])
 
   const gsapRef = useRef<HTMLDivElement>(null)
   useLayoutEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     const ctx = gsap.context(() => {
       gsap.from(gsapRef.current!.children, { delay: 0.5, stagger: 0.2, opacity: 0, y: -20 })
     })
@@ -116,11 +128,11 @@ const ReportPage = () => {
             <span className='block text-3xl font-bold text-primary-green tb:text-xl'>
               {reportsBlurbs[scoreKey].sup}
             </span>
-            <span className='mb:leading-none block text-[50px] font-bold leading-[50px] text-primary-blue tb:text-[35px] md:text-[25px]'>
+            <span className='mb:leading-none block text-[50px] font-bold leading-[50px] text-primary-blue tb:text-[35px] tb:leading-8 md:text-[25px]'>
               {reportsBlurbs[scoreKey].title}
             </span>
           </h1>
-          <div className='mb-4 flex w-full justify-between'>
+          <div className='mb-4 flex w-full items-start justify-between'>
             <div className='mb-6 w-full'>
               <div className='mb-8 h-[278px] md:h-[220px]'>
                 <div className='mb-4 flex w-full justify-between ' ref={gsapRef}>
@@ -174,42 +186,45 @@ const ReportPage = () => {
               <div className='relative flex items-center'>
                 <ArrowL className='h-[17px] w-[14px] shrink-0' />
                 <div className='grow-1 mr-4 block h-[3px] w-full bg-dark-grey-blue' />
-                <ComText className='w-[100px] shrink-0 grow-0' />
+                <ComText className='w-[100px] shrink-0 grow-0 md:w-[80px]' />
                 <div className='grow-1 ml-4 block h-[3px] w-full bg-dark-grey-blue' />
                 <ArrowR className='h-[17px] w-[14px] shrink-0' />
-                <p className='absolute top-5 right-0 text-neutral-charcoal text-opacity-80 '>Deep</p>
-                <p className='absolute top-5 left-0 text-neutral-charcoal text-opacity-80 '>Shallow</p>
+                <p className='absolute top-5 right-0 text-neutral-charcoal text-opacity-80 md:text-xs '>Deep</p>
+                <p className='absolute top-5 left-0 text-neutral-charcoal text-opacity-80  md:text-xs'>Shallow</p>
               </div>
             </div>
-            <SustainabilityScale className='ml-3 shrink-0' />
+            <SustainabilityScale className='ml-3 shrink-0 sm:ml-1 sm:w-[100px] sm:-translate-y-8' />
           </div>
         </Grid>
         <Grid className='mb-[50px]'>
-          <div className='flex gap-12 tb:flex-col tb:gap-6'>
-            <div className='w-full'>{reportsBlurbs[scoreKey].paragraphs}</div>
-            <div className='tb:grid-rows-auto w-[534px] shrink-0 tb:grid tb:w-full tb:grid-cols-2 tb:gap-2.5'>
+          <div className='flex gap-12 tb:flex-col tb:gap-0'>
+            <div className='mb-6 w-full'>{reportsBlurbs[scoreKey].paragraphs}</div>
+            <div className='tb:grid-rows-auto w-[534px] shrink-0 tb:grid tb:w-full tb:grid-cols-2 tb:gap-2.5 md:grid-cols-1'>
               <div className='report-box report-bar mb-5 tb:mb-0'>
                 <p className='report-box-title'>Book a Demo</p>
                 <p className='report-box-copy'>
                   Let us be your partner on your path to supply chain sustainability. See why Assent’s platform is the
                   number one choice of the world’s most sustainable businesses.
                 </p>
-                <ButtonLg>Book a Demo</ButtonLg>
+                <ButtonLg onClick={() => setmodalIsOpen(true)}>Book a Demo</ButtonLg>
               </div>
               <div className='report-box'>
                 <p className='report-box-title'>Share Your Results</p>
                 <p className='report-box-copy'>Copy, bookmark, and share your results with your team.</p>
-                <ArrowLink>Email link</ArrowLink>
+                {/* FIXME - update with URL */}
+                <ArrowLink href='mailto:?subject=Check%20out%20our%20Supply%20Chain%20Sustainability%20Report%20from%20Assent&body=Hi%2C%20I%20just%20took%20Assent%E2%80%99s%20Supply%20Chain%20Sustainability%20Maturity%20self-assessment%20to%20better%20understand%20our%20sustainability%20journey%20within%20our%20organization.%20The%20model%20showcases%20how%20we%20rank%20and%20outlines%20focus%20areas%20to%20further%20strengthen%20our%20supply%20chain.%20Take%20a%20look%20at%20our%20results%3A%20%20%5BRESULTS%20PAGE%20LINK%5D.%20You%20can%20also%20take%20the%20assessment%20yourself%20and%20we%20can%20compare%20answers%3A%20%5BTOOL%20HOME%20PAGE%20LINK%5D.'>
+                  Email link
+                </ArrowLink>
               </div>
             </div>
           </div>
         </Grid>
         <div className='rep-graph--container relative'>
-          <img src={vectorsImg} alt='' className='absolute bottom-0 left-0 z-10 object-contain' />
+          <img src={vectorsImg} alt='' className='absolute bottom-0 left-0 z-10 object-contain tb:hidden' />
           <Grid>
             <div className='flex w-full gap-4 tb:flex-col-reverse'>
               <div className='relative z-10 w-1/2 shrink-0 tb:w-full'>
-                <h2 className='mb-8 text-[40px] font-bold text-white tb:hidden'>
+                <h2 className='mb-8 text-[40px] font-bold text-white tb:hidden '>
                   Supply Chain Sustainability Breakdown
                 </h2>
                 <ReportDots />
@@ -221,7 +236,7 @@ const ReportPage = () => {
                   {blurbs.map(({ blurb, label }, i) => (
                     <div
                       key={i}
-                      className={`absolute top-0 left-0 transition-opacity duration-300 ease-in-out ${
+                      className={`absolute top-0 left-0 font-nunito transition-opacity duration-300 ease-in-out ${
                         slide === i ? 'opacity-100' : 'opacity-0'
                       }`}
                     >
@@ -232,7 +247,7 @@ const ReportPage = () => {
                 </div>
               </div>
               <div className='w-1/2 shrink-0 tb:w-full'>
-                <h2 className='mb-8 hidden text-center text-[30px] font-bold text-white tb:block'>
+                <h2 className='mb-8 hidden text-center text-[25px] font-bold text-white tb:block'>
                   Supply Chain Sustainability Breakdown
                 </h2>
                 <ReportGraph />
@@ -244,12 +259,12 @@ const ReportPage = () => {
         <div className='pt-7 pb-14'>
           <Grid>
             <p className='mb-4 text-[40px] font-bold text-primary-blue'>Resources</p>
-            <p className='report-copy w-[712px]'>
+            <p className='report-copy w-[712px] tb:w-full'>
               Keep your journey going! The Assent Supply Chain Sustainability Maturity Model is designed to help
               business leaders understand critical capabilities and illuminate the steps on the journey to deep supply
               chain sustainability.
             </p>
-            <div className='grid auto-rows-auto grid-cols-2 gap-2.5'>
+            <div className='grid auto-rows-auto grid-cols-2 gap-2.5 md:grid-cols-1'>
               <div className='report-box bar-blue justify-self-stretch'>
                 <p className='report-box-title'>The Assent Solution Guide</p>
                 <p className='report-box-copy'>
@@ -279,20 +294,33 @@ const ReportPage = () => {
         </div>
         <div className='cta-gradient overflow-hidden py-14'>
           <img src={vectorsLeft} alt='' className='absolute top-1 left-0' />
-          <img src={vectorsRight} alt='' className='absolute top-1 right-0' />
+          <img src={vectorsRight} alt='' className='absolute top-1 right-0 md:hidden' />
           <Grid>
             <div className='mx-auto flex max-w-[790px] flex-col items-center'>
-              <p className='mb-2.5 text-[41px] font-bold leading-[1.3] text-white'>Ready to take the next step?</p>
-              <p className='mb-4 text-center font-nunito text-[20px] leading-[1.5] text-white'>
+              <p className='mb-2.5 text-center text-[41px] font-bold leading-[1.3] text-white md:text-[25px]'>
+                Ready to take the next step?
+              </p>
+              <p className='mb-4 text-center font-nunito text-[20px] leading-[1.5] text-white md:text-lg'>
                 Whether you’re interested in learning more or need specific details, we’re here to help.
               </p>
-              <ButtonLg className='bg-white stroke-dark-grey-blue text-dark-grey-blue hover:bg-white'>
+              <ButtonLg
+                className='bg-white stroke-dark-grey-blue text-dark-grey-blue transition-all duration-100 hover:bg-white hover:bg-opacity-50 hover:stroke-white hover:text-white'
+                onClick={() => setmodalIsOpen(true)}
+              >
                 Talk to an Expert
               </ButtonLg>
             </div>
           </Grid>
         </div>
       </div>
+      <Modal
+        style={customStyles}
+        isOpen={modalIsOpen}
+        onRequestClose={() => setmodalIsOpen(false)}
+        className='book-content'
+      >
+        <BookDemo setModalIsOpen={setmodalIsOpen} />
+      </Modal>
     </ReportSlidesProvider>
   )
 }

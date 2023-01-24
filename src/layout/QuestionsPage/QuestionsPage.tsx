@@ -1,4 +1,6 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, useLayoutEffect, useRef } from 'react'
+import gsap from 'gsap'
+
 import { useAppSelector } from '../../redux'
 import { selectQuestions } from '../../redux/questions/questionSelectors'
 import { SlidesProvider } from '../../slider/hooks/useSlider'
@@ -10,8 +12,13 @@ import './QuestionsPage.scss'
 
 const QuestionsPage = () => {
   const questions = useAppSelector(selectQuestions)
+  const ref = useRef<HTMLDivElement>(null)
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => gsap.from(ref.current, { left: '100%', duration: 0.6 }))
+    return () => ctx.revert()
+  }, [])
   return (
-    <div className='questions-page'>
+    <div className='questions-page' ref={ref}>
       <SlidesProvider>
         <Slider
           items={questions}

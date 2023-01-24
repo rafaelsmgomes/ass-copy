@@ -1,4 +1,4 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useEffect, useState } from 'react'
+import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useContext, useEffect, useState } from 'react'
 import { useAppSelector } from '../../redux'
 import { selectQuestionsLength } from '../../redux/questions/questionSelectors'
 
@@ -33,28 +33,28 @@ export const SlidesProvider = ({ children }: { children: ReactNode }) => {
   const [slidesCount, setSlidesCount] = useState(questionsLength + 2 - 1)
   const [visitedSlides, setVisitedSlides] = useState(0)
 
-  const nextStep = () => {
+  const nextStep = useCallback(() => {
     setActiveSlide((cur) => (cur += 1))
-  }
-  const prevStep = () => {
+  }, [])
+  const prevStep = useCallback(() => {
     setActiveSlide((cur) => (cur -= 1))
-  }
-  const restart = () => {
+  }, [])
+  const restart = useCallback(() => {
     setActiveSlide(0)
-  }
-  const goToStep = (num: number) => {
+  }, [])
+  const goToStep = useCallback((num: number) => {
     setActiveSlide(num)
-  }
+  }, [])
 
   const [arrowStatus, setArrowStatus] = useState<ArrowStateType>({ left: 'inactive', right: 'active' })
 
   const [slidesHeight, setSlidesHeight] = useState(0)
-  const setMaxSlidesHeight = (num: number) => {
+  const setMaxSlidesHeight = useCallback((num: number) => {
     setSlidesHeight((cur) => {
       if (num > cur) return num
       else return cur
     })
-  }
+  }, [])
 
   useEffect(() => {
     if (activeSlide > visitedSlides) {

@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Assent Supply Chain Maturity Assessment" />
+    <meta
+      property="og:description"
+      content="I just took Assent’s Supply Chain Sustainability Maturity self-assessment to better understand our sustainability journey within our organization. Take the assessment yourself:"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./src/assets/images/Assent-share-LinkedIn.jpg" />
+    <meta property="twitter:image" content="./src/assets/images/Assent-share-Twitter.jpg" />
+    <!-- FIXME - update with actual URL -->
+    <meta property="og:url" content="https://assent.com" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -165,28 +176,28 @@
       content = content == '' ? getParameterByName('itm_content') : content
 
       // Put the variable names into the hidden fields in the form.
-      document.querySelectorAll('form .utm_source input').forEach(function (el) {
+      document.querySelectorAll('form .utm_source').forEach(function (el) {
         el.value = source
       })
-      document.querySelectorAll('form .utm_medium input').forEach(function (el) {
+      document.querySelectorAll('form .utm_medium').forEach(function (el) {
         el.value = medium
       })
-      document.querySelectorAll('form .utm_campaign input').forEach(function (el) {
+      document.querySelectorAll('form .utm_campaign').forEach(function (el) {
         el.value = campaign
       })
-      document.querySelectorAll('form .utm_term input').forEach(function (el) {
+      document.querySelectorAll('form .utm_term').forEach(function (el) {
         el.value = term
       })
-      document.querySelectorAll('form .utm_region input').forEach(function (el) {
+      document.querySelectorAll('form .utm_region').forEach(function (el) {
         el.value = region
       })
-      document.querySelectorAll('form .utm_channel input').forEach(function (el) {
+      document.querySelectorAll('form .utm_channel').forEach(function (el) {
         el.value = channel
       })
-      document.querySelectorAll('form .utm_content input').forEach(function (el) {
+      document.querySelectorAll('form .utm_content').forEach(function (el) {
         el.value = content
       })
-      document.querySelectorAll('form .referring-page input').forEach(function (el) {
+      document.querySelectorAll('form .referring-page').forEach(function (el) {
         el.value = pageReferrer
       })
     </script>

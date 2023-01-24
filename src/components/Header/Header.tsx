@@ -9,18 +9,8 @@ import { ButtonSml } from '../UI/Button/Button'
 import BookDemo from '../BookDemo/BookDemo'
 
 const customStyles: Modal.Styles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '20px 50px',
-    borderRadius: '10px',
-  },
   overlay: {
-    backgroundColor: 'rgba(0,0,0 , .2)',
+    backgroundColor: 'rgba(0,0,0 , .4)',
   },
 }
 
@@ -48,8 +38,13 @@ const Header = () => {
           </div>
         </Grid>
       </div>
-      <Modal style={customStyles} isOpen={modalIsOpen} onRequestClose={() => setmodalIsOpen(false)}>
-        <BookDemo />
+      <Modal
+        style={customStyles}
+        isOpen={modalIsOpen}
+        onRequestClose={() => setmodalIsOpen(false)}
+        className='book-content'
+      >
+        <BookDemo setModalIsOpen={setmodalIsOpen} />
       </Modal>
     </>
   )

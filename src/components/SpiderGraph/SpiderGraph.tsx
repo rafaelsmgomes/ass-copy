@@ -30,7 +30,7 @@ const SpiderGraph = ({ className }: SpiderGraphProps) => {
       <svg
         viewBox={window.innerWidth <= 600 ? '0 0 475 500' : '0 0 475 465'}
         preserveAspectRatio={'xMidYMid meet'}
-        className='max-w-[670px]'
+        className='max-w-[670px] tb:mx-auto'
       >
         <g className='' style={{ transform: 'scale(0.9) translate(120px,80px)' }}>
           <g className='all-levels'>

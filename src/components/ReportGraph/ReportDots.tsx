@@ -8,11 +8,11 @@ const ReportDots = () => {
   const questions = useAppSelector(selectQuestions)
 
   return (
-    <div className='mb-6 flex'>
+    <div className='mb-6 flex gap-2.5 tb:justify-center tb:gap-4'>
       {questions.map((_, i) => {
         return (
           <button
-            className={`mr-2.5 h-[11px] w-[11px] cursor-pointer rounded-full  transition-all duration-200 ease-out last:mr-0 disabled:cursor-not-allowed disabled:bg-neutral-fog ${
+            className={`h-[11px] w-[11px] cursor-pointer rounded-full  transition-all duration-200 ease-out last:mr-0 hover:opacity-50 disabled:cursor-not-allowed disabled:bg-neutral-fog tb:h-4 tb:w-4 ${
               i === slide ? 'bg-secondary-gold' : 'bg-[#a7d7d4]'
             }`}
             key={i}

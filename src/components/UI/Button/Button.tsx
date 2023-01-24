@@ -47,6 +47,7 @@ export const ArrowLink = <T extends React.ElementType = 'a'>({
       className={`arrow-link mt-auto flex items-center text-[17px] font-bold text-dark-grey-blue ${
         className ? className : ''
       }`}
+      target={'_blank'}
       {...props}
     >
       <span>{children}</span>

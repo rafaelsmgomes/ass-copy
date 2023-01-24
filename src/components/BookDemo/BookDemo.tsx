@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef } from 'react'
+import React, { ComponentPropsWithoutRef, Dispatch, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from '../Form/Input'
 
@@ -7,7 +7,9 @@ import { SelectRole } from '../Form/SelectRole'
 import SelectCountry from '../Form/SelectCountry'
 import { ButtonLg } from '../UI/Button/Button'
 
-export type BookDemoProps = {}
+export type BookDemoProps = {
+  setModalIsOpen: Dispatch<SetStateAction<boolean>>
+}
 
 type InputsType = {
   FirstName: string
@@ -16,13 +18,28 @@ type InputsType = {
   Phone: string
   Company: string
   Title: string
+  utm_term: string
+  utm_region: string
+  utm_channel: string
+  utm_content: string
+  ReferringPage: string
 }
 
-const BookDemo = (props: BookDemoProps) => {
+const BookDemo = ({ setModalIsOpen }: BookDemoProps) => {
   const { register, handleSubmit } = useForm<InputsType>()
 
   return (
     <div className='book-demo'>
+      <button onClick={() => void setModalIsOpen(false)}>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          version='1'
+          viewBox='0 0 24 24'
+          className='absolute top-5 right-6 h-6 w-6 fill-gray-400'
+        >
+          <path d='M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z'></path>
+        </svg>
+      </button>
       <form
         name='demoForm'
         id='demo-form'
@@ -52,6 +69,12 @@ const BookDemo = (props: BookDemoProps) => {
           <SelectRole className='w-full' />
           <Input {...register('Title', { required: true })} labelText='Job title' />
           <SelectCountry />
+          {/* REF - hidden inputs */}
+          <input type='hidden' {...register('utm_term')} id='pardot_utm_term' value='' />
+          <input type='hidden' {...register('utm_region')} id='pardot_utm_region' value='' />
+          <input type='hidden' {...register('utm_channel')} id='pardot_utm_channel' value='' />
+          <input type='hidden' {...register('utm_content')} id='pardot_utm_content' value='' />
+          <input type='hidden' {...register('ReferringPage')} id='pardot_refering_page' value='' />
           <p className='mb-4 font-nunito text-base text-neutral-charcoal'>
             By submitting this form, I consent to be contacted by Assent, which includes receiving Assent's eNewsletter
             and other promotional messages via email, in accordance with{' '}
@@ -60,7 +83,7 @@ const BookDemo = (props: BookDemoProps) => {
             </a>
             .
           </p>
-          <ButtonLg>Submit</ButtonLg>
+          <ButtonLg type='submit'>Submit</ButtonLg>
         </div>
       </form>
     </div>
