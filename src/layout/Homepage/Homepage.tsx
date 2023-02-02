@@ -55,7 +55,7 @@ const Homepage = (props: any) => {
           <div className='home-box'>
             <p className='mb-1 text-sm font-bold text-primary-green tb:text-lg'>Maturity Assessment</p>
             <h1 className='mb-[18px] text-[50px] font-bold leading-[58px] text-primary-blue tb:text-3xl'>
-              Your Journey to Supply Chain Sustainability!
+              Your Journey to Supply Chain Sustainability
             </h1>
             <div className='mb-5' style={{}}>
               <Desciption />
