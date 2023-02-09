@@ -17,6 +17,7 @@ import { ReactComponent as ComText } from '../../assets/svgs/comp_Compliance-tex
 import vectorsImg from '../../assets/svgs/vectors-sml.svg'
 import vectorsLeft from '../../assets/svgs/vector-cta-left.svg'
 import vectorsRight from '../../assets/svgs/vector-cta-right.svg'
+import vectorsBg from '../../assets/svgs/bg-triangles-blue.svg'
 
 import './ReportPage.scss'
 import ReportGraph from '../../components/ReportGraph/ReportGraph'
@@ -107,7 +108,7 @@ const ReportPage = () => {
   }, [])
 
   useEffect(() => {
-    console.log(location)
+    // console.log(location)
     if (location.search) {
       dispatch(answerSlices.actions.updateAnswers({ answerScores: answersScores }))
     }
@@ -115,7 +116,7 @@ const ReportPage = () => {
 
   return (
     <ReportSlidesProvider value={{ slide, setSlide }}>
-      <div className='pt-12 pb-28 tb:pt-0'>
+      <div className='pt-2 pb-28 tb:pt-0'>
         <div className='py-4 tb:mb-6 tb:bg-primary-blue'>
           <Grid>
             <p className='font-body text-sm font-bold text-neutral-charcoal tb:text-white'>
@@ -196,7 +197,8 @@ const ReportPage = () => {
             <SustainabilityScale className='ml-3 shrink-0 sm:ml-1 sm:w-[100px] sm:-translate-y-8' />
           </div>
         </Grid>
-        <Grid className='mb-[50px]'>
+        <Grid className='relative mb-[50px]'>
+          <img src={vectorsBg} alt='' className='absolute top-1/4 left-1/2 -translate-x-1/2' />
           <div className='flex gap-12 tb:flex-col tb:gap-0'>
             <div className='mb-6 w-full'>{reportsBlurbs[scoreKey].paragraphs}</div>
             <div className='tb:grid-rows-auto w-[534px] shrink-0 tb:grid tb:w-full tb:grid-cols-2 tb:gap-2.5 md:grid-cols-1'>
@@ -285,7 +287,7 @@ const ReportPage = () => {
                   The Assent platform helps complex manufacturers a defensible system of record for all their supply
                   chain sustainability due diligence data from product and trade compliance to ESG.
                 </p>
-                <ArrowLink href='http://www.assent.com/' target={'_blank'} className='bottom-0'>
+                <ArrowLink href='https://www.assent.com/capabilities/' target={'_blank'} className='bottom-0'>
                   Explore Assent
                 </ArrowLink>
               </div>
