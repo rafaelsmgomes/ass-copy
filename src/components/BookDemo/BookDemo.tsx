@@ -83,7 +83,9 @@ const BookDemo = ({ setModalIsOpen }: BookDemoProps) => {
             </a>
             .
           </p>
-          <ButtonLg type='submit'>Submit</ButtonLg>
+          <ButtonLg type='submit' className='bg-bruise'>
+            Submit
+          </ButtonLg>
         </div>
       </form>
     </div>
