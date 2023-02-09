@@ -1,48 +1,13 @@
-Design:
-  ☐ Add responsive design to questions
-    ☐ Make parent height automatic
-  Reponsive:
-    ☐ Questions height
-    ☐ Reports page
+Form data:
+  Problem? 
+  1) 🔥🔥🔥 Pardot does not accept axios submissions with data
+  2) 🔥🔥 For some fields, I need to submit the data as string - no array of data will be accepted. 
+    Therefore, I need to be able to either
+        1- manipulate data on submit to concatenate 
+        2- concatenate the data before I submit it
+  3) Have to be able to test the form capture after I send it to see if the data is correct
+    Get the script to add the UTM params to the text inputs
 
-QA:
-  ✔ Add Assent's feedback
-  Form:
-    ✔ Dropdown design 
-    ✔ Input design
-    ✔ Format checkbox selection
-    ☐ Hook up form to ascent
-    ✘ API format
-    ✔ React-hook-form
-      ✔ Add validation
-        ✔ Use Zod
-        ✔ Rename fields
-      ☐ Connect components
-  Book a Demo CTA:
-    ✔ Create component
-    ☐ Connect to Assent
-
-
-For tomorrow: 
-  ✔ Animate results from 0 to 4
-  ✔ Get Book a Demo component in
-    ✔ Hook component to Form
-  ☐ ˝Prepare the data for Gate POST API 
-    ☐ Need to send them 
-  ✔ Centralize the landing page
-  ✔ URL for reports page
-
-
-For launch:
-  ✔ Add scripts sent by Assent 
-
-  Home page:
-    ✔ The “more info” button - i really don’t like how when you click it, the entire background and white box move. Can we just have the white box increases in height, so it doesn’t feel like a weird jump? plus animation (the old text box fades out, the new text fades in, and the white box slides open more—instead of a stark pop)?
-    ✔ (transition to Question 1): i thought we had discussed having an animation here, sliding left to right into Question 1. I think it will help this feel better, it feels dead. Can we implement that please?
-  Gate page:
-    ✔ can you please make the spacing below the “Names” and “business email / job title” boxes the same as the spacing between the dropdown boxes? right now it’s larger and looks off.
-    ☐ the last dropdown (“Who owns your supply chain sustainability program?“), you should only be able to select ONE checkbox. it’s not a “select all that apply”
-    ☐ Results page: the left side still shows “X” icons, not the lightbulb icons. But Annie caught that too.
-  Report page:
-    ☐ “Book a demo” button in the page body should be the same as the header (bring up the same form/pop-up)
-
+Questions:
+  1) 
+  2) 
