@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import z from 'zod'
+import { useEffect, useState } from 'react'
+import { useForm, FieldValues } from 'react-hook-form'
 
 import { useSlider } from '../../slider/hooks/useSlider'
 import Dots from '../Dots/Dots'
@@ -13,8 +11,8 @@ import { Input } from '../Form/Input'
 import { ReactComponent as Arrow } from '../../assets/svgs/arrow-down.svg'
 
 import './Gate.scss'
-import axios from 'axios'
 import { ScoreType } from '../../redux/answers/answersSlice'
+import { campaign, channel, content, getParameterByName, medium, pageReferrer, region, source, term } from './utmParams'
 export const queriesBuilder = (arr: ScoreType[]) => {
   let str = ''
   arr.forEach((el, i) => {
@@ -26,6 +24,7 @@ export const queriesBuilder = (arr: ScoreType[]) => {
   })
   return str
 }
+
 type Schema = {
   FirstName: string
   LastName: string
@@ -35,6 +34,8 @@ type Schema = {
   utm_region: string
   utm_channel: string
   utm_content: string
+  utm_campaign: string
+  utm_source: string
   ReferringPage: string
   Organizational_Pressures: string[]
   Operational_Region: string
@@ -48,12 +49,7 @@ export type GateProps = {}
 const Gate = (props: GateProps) => {
   const { nextStep } = useSlider()
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Schema>()
+  const { register, handleSubmit, watch } = useForm<Schema>()
 
   const answers = useAppSelector(selectAnswersArr)
 
@@ -62,12 +58,23 @@ const Gate = (props: GateProps) => {
   const [third, setThird] = useState(false)
 
   const onSubmit = (d: FieldValues) => {
-    const userLink = `${window.location.origin}/#/report?${queriesBuilder(answers)}`
     console.log({ d })
-    console.log(userLink)
-    axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
-    nextStep()
+
+    // axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
+    // nextStep()
   }
+  const [userLink, setUserLink] = useState('second')
+
+  useEffect(() => {
+    // source = source == '' ? getParameterByName('itm_source') : source
+    // medium = medium == '' ? getParameterByName('itm_medium') : medium
+    // campaign = campaign == '' ? getParameterByName('itm_campaign') : campaign
+    // term = term == '' ? getParameterByName('itm_term') : term
+    // region = region == '' ? getParameterByName('itm_region') : region
+    // channel = channel == '' ? getParameterByName('itm_channel') : channel
+    // content = content == '' ? getParameterByName('itm_content') : content
+    setUserLink(`${window.location.origin}/#/report?${queriesBuilder(answers)}`)
+  }, [])
 
   return (
     <div className='gate'>
@@ -76,7 +83,21 @@ const Gate = (props: GateProps) => {
       <p className='leading- mb-6 text-[25px] font-bold leading-9 text-primary-blue'>
         Tell us a bit more about you and your business to view your results.
       </p>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        method='POST'
+        action='http://click.assent.com/l/955773/2022-12-13/46jzj'
+        data-formtype='demo'
+        onSubmit={handleSubmit((data, e) => {
+          if (!e) return
+          e.preventDefault()
+          const form = e.target as HTMLFormElement
+          // FIXME - this breaks the user experience
+          // Testing purposes only!
+          form.submit()
+
+          nextStep()
+        })}
+      >
         <div className='grid grid-cols-2 justify-between gap-4'>
           <Input
             type='text'
@@ -91,14 +112,22 @@ const Gate = (props: GateProps) => {
           <Input type='text' {...register('Title')} labelText='Job title' id='pardot_job_title' />
         </div>
         {/* REF - hidden inputs */}
-        <input type='hidden' {...register('utm_term')} id='pardot_utm_term' value='' />
-        <input type='hidden' {...register('utm_region')} id='pardot_utm_region' value='' />
-        <input type='hidden' {...register('utm_channel')} id='pardot_utm_channel' value='' />
-        <input type='hidden' {...register('utm_content')} id='pardot_utm_content' value='' />
-        <input type='hidden' {...register('ReferringPage')} id='pardot_refering_page' value='' />
+        <input type='hidden' {...register('utm_term')} id='pardot_utm_term' value={term} />
+        <input type='hidden' {...register('utm_region')} id='pardot_utm_region' value={region} />
+        <input type='hidden' {...register('utm_channel')} id='pardot_utm_channel' value={channel} />
+        <input type='hidden' {...register('utm_content')} id='pardot_utm_content' value={content} />
+        <input type='hidden' {...register(`utm_source`)} value={source} />
+        <input type='hidden' {...register(`utm_campaign`)} value={campaign} />
+        <input type='hidden' {...register('ReferringPage')} id='pardot_refering_page' value={pageReferrer} />
+        <input
+          type='hidden'
+          {...register('Organizational_Pressures')}
+          value={watch('Organizational_Pressures').concat(',')}
+        />
+        <input type='hidden' {...register('Maturity_Model_Variable_Link')} value={userLink} />
         <div className='gate-dropdown'>
           <div className='gate-dropdown-title' onClick={() => setFirst((cur) => !cur)}>
-            <span>What pressures impact your organization the most?</span>
+            <span>What sustainability pressures impact your organization the most?</span>
             <Arrow className={`transition-all duration-300 ease-in-out ${first ? '-rotate-90' : 'rotate-90'}`} />
           </div>
           <div className={`${first ? 'block' : 'hidden'} gate-dropdown-box`}>
@@ -149,7 +178,7 @@ const Gate = (props: GateProps) => {
                 {...register('Organizational_Pressures')}
                 id=''
                 className=''
-                value="Other / Doesn't exist"
+                value="I don't know / Doesn't exist"
               />
               Other / Doesn't exist
             </label>
