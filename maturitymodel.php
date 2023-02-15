@@ -34,6 +34,7 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400&display=swap"
       rel="stylesheet"
     />
+    <!-- TODO - add new hash to file -->
     <link rel="stylesheet" href="/wp-content/themes/assent-wp/assets-mm/index-9f574f73.css">
     <!-- Google Tag Manager -->
     <script>
@@ -131,6 +132,7 @@
   <body>
     <div id="root"></div>
     <div id="modal"></div>
+    <!-- TODO- add hash to file -->
     <script type="module" crossorigin src="/wp-content/themes/assent-wp/assets-mm/index-861c93a4.js"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>

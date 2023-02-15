@@ -15,4 +15,14 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      input: './index.html',
+      output: {
+        entryFileNames: 'assets-mm/[name].js',
+        chunkFileNames: 'assets-mm/[name].js',
+        assetFileNames: 'assets-mm/[name].[ext]',
+      },
+    },
+  },
 })

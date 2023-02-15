@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useForm, FieldValues } from 'react-hook-form'
-
+import $ from 'jquery'
 import { useSlider } from '../../slider/hooks/useSlider'
 import Dots from '../Dots/Dots'
 import { ButtonLg } from '../UI/Button/Button'
@@ -13,6 +13,7 @@ import { ReactComponent as Arrow } from '../../assets/svgs/arrow-down.svg'
 import './Gate.scss'
 import { ScoreType } from '../../redux/answers/answersSlice'
 import { campaign, channel, content, getParameterByName, medium, pageReferrer, region, source, term } from './utmParams'
+
 export const queriesBuilder = (arr: ScoreType[]) => {
   let str = ''
   arr.forEach((el, i) => {
@@ -37,11 +38,14 @@ type Schema = {
   utm_campaign: string
   utm_source: string
   ReferringPage: string
-  Organizational_Pressures: string[]
+  Organizational_Pressures: string
   Operational_Region: string
   Supply_Chain_Program_Owner: string
   Maturity_Model_Result: number[]
   Maturity_Model_Variable_Link: string
+
+  multi_select_region: string[]
+  Organizational_Pressures_capture: string[]
 }
 
 export type GateProps = {}
@@ -49,21 +53,24 @@ export type GateProps = {}
 const Gate = (props: GateProps) => {
   const { nextStep } = useSlider()
 
-  const { register, handleSubmit, watch } = useForm<Schema>()
+  const { register, handleSubmit, watch, setValue } = useForm<Schema>()
 
   const answers = useAppSelector(selectAnswersArr)
+  const [userLink, setUserLink] = useState(`${window.location.origin}/#/report?${queriesBuilder(answers)}`)
 
   const [first, setFirst] = useState(false)
   const [second, setSecond] = useState(false)
   const [third, setThird] = useState(false)
 
+  const [organizationalString, setOrganizationalString] = useState('')
+  const watchSelect = watch('Organizational_Pressures_capture')
+  const watchRegion = watch('multi_select_region')
   const onSubmit = (d: FieldValues) => {
     console.log({ d })
 
     // axios.post('http://click.assent.com/l/955773/2022-12-13/46jzj', { ...d, Maturity_Model_Variable_Link: userLink })
     // nextStep()
   }
-  const [userLink, setUserLink] = useState('second')
 
   useEffect(() => {
     // source = source == '' ? getParameterByName('itm_source') : source
@@ -73,8 +80,15 @@ const Gate = (props: GateProps) => {
     // region = region == '' ? getParameterByName('itm_region') : region
     // channel = channel == '' ? getParameterByName('itm_channel') : channel
     // content = content == '' ? getParameterByName('itm_content') : content
-    setUserLink(`${window.location.origin}/#/report?${queriesBuilder(answers)}`)
   }, [])
+  useEffect(() => {
+    if (!watchSelect) return
+    setValue('Organizational_Pressures', watchSelect.join(','))
+  }, [watchSelect, setValue])
+  useEffect(() => {
+    if (!watchRegion) return
+    setValue('Operational_Region', watchRegion.join(','))
+  }, [setValue, watchRegion])
 
   return (
     <div className='gate'>
@@ -83,17 +97,22 @@ const Gate = (props: GateProps) => {
       <p className='leading- mb-6 text-[25px] font-bold leading-9 text-primary-blue'>
         Tell us a bit more about you and your business to view your results.
       </p>
+      <iframe src='/form.html' className='hidden' />
       <form
         method='POST'
-        action='http://click.assent.com/l/955773/2022-12-13/46jzj'
+        action='https://click.assent.com/l/955773/2022-12-13/46jzj'
         data-formtype='demo'
         onSubmit={handleSubmit((data, e) => {
           if (!e) return
           e.preventDefault()
           const form = e.target as HTMLFormElement
-          // FIXME - this breaks the user experience
-          // Testing purposes only!
-          form.submit()
+
+          // DEV> using JSONP with ajax to submit to pardot
+          // $.ajax({
+          //   url: '',
+          //   dataType: 'jsonp',
+          //   jsonpCallback: 'callback',
+          // })
 
           nextStep()
         })}
@@ -119,11 +138,7 @@ const Gate = (props: GateProps) => {
         <input type='hidden' {...register(`utm_source`)} value={source} />
         <input type='hidden' {...register(`utm_campaign`)} value={campaign} />
         <input type='hidden' {...register('ReferringPage')} id='pardot_refering_page' value={pageReferrer} />
-        <input
-          type='hidden'
-          {...register('Organizational_Pressures')}
-          value={watch('Organizational_Pressures').concat(',')}
-        />
+        <input type='text' {...register('Organizational_Pressures')} value={'Something'} className='hidden' />
         <input type='hidden' {...register('Maturity_Model_Variable_Link')} value={userLink} />
         <div className='gate-dropdown'>
           <div className='gate-dropdown-title' onClick={() => setFirst((cur) => !cur)}>
@@ -137,7 +152,7 @@ const Gate = (props: GateProps) => {
                 type='checkbox'
                 id=''
                 className=''
-                {...register('Organizational_Pressures')}
+                {...register('Organizational_Pressures_capture')}
                 value='Customer demands'
               />
               Customer demands
@@ -145,7 +160,7 @@ const Gate = (props: GateProps) => {
             <label className='checkbox-label'>
               <input
                 type='checkbox'
-                {...register('Organizational_Pressures')}
+                {...register('Organizational_Pressures_capture')}
                 id=''
                 className=''
                 value='Regulatory requirements'
@@ -155,7 +170,7 @@ const Gate = (props: GateProps) => {
             <label className='checkbox-label'>
               <input
                 type='checkbox'
-                {...register('Organizational_Pressures')}
+                {...register('Organizational_Pressures_capture')}
                 id=''
                 className=''
                 value='Investor pressures'
@@ -165,7 +180,7 @@ const Gate = (props: GateProps) => {
             <label className='checkbox-label'>
               <input
                 type='checkbox'
-                {...register('Organizational_Pressures')}
+                {...register('Organizational_Pressures_capture')}
                 id=''
                 className=''
                 value='Leadership expectations'
@@ -175,7 +190,7 @@ const Gate = (props: GateProps) => {
             <label className='checkbox-label'>
               <input
                 type='checkbox'
-                {...register('Organizational_Pressures')}
+                {...register('Organizational_Pressures_capture')}
                 id=''
                 className=''
                 value="I don't know / Doesn't exist"
@@ -195,25 +210,25 @@ const Gate = (props: GateProps) => {
               apply)
             </p>
             <label className='checkbox-label'>
-              <input type='checkbox' id='' className='' {...register('Operational_Region')} value='EMEA' />
+              <input type='checkbox' id='' className='' {...register('multi_select_region')} value='EMEA' />
               EMEA
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' {...register('Operational_Region')} id='' className='' value='APAC' />
+              <input type='checkbox' {...register('multi_select_region')} id='' className='' value='APAC' />
               APAC
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' {...register('Operational_Region')} id='' className='' value={'Americas'} />
+              <input type='checkbox' {...register('multi_select_region')} id='' className='' value={'Americas'} />
               Americas
             </label>
             <label className='checkbox-label'>
-              <input type='checkbox' {...register('Operational_Region')} id='' className='' value={'Africa'} />
+              <input type='checkbox' {...register('multi_select_region')} id='' className='' value={'Africa'} />
               Africa
             </label>
             <label className='checkbox-label'>
               <input
                 type='checkbox'
-                {...register('Operational_Region')}
+                {...register('multi_select_region')}
                 id=''
                 className=''
                 value={`Other / Doesn't exist`}
@@ -271,5 +286,4 @@ const Gate = (props: GateProps) => {
     </div>
   )
 }
-
 export default Gate
