@@ -100,19 +100,12 @@ const Gate = (props: GateProps) => {
       <iframe src='/form.html' className='hidden' />
       <form
         method='POST'
-        action='https://click.assent.com/l/955773/2022-12-13/46jzj'
+        action='url'
         data-formtype='demo'
         onSubmit={handleSubmit((data, e) => {
           if (!e) return
           e.preventDefault()
           const form = e.target as HTMLFormElement
-
-          // DEV> using JSONP with ajax to submit to pardot
-          // $.ajax({
-          //   url: '',
-          //   dataType: 'jsonp',
-          //   jsonpCallback: 'callback',
-          // })
 
           nextStep()
         })}

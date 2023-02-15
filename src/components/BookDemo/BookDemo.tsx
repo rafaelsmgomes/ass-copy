@@ -46,7 +46,7 @@ const BookDemo = ({ setModalIsOpen }: BookDemoProps) => {
       <form
         name='demoForm'
         id='demo-form'
-        action='https://click.assent.com/l/955773/2022-12-22/49rp4'
+        action='url'
         className='form--wrap mfp-prevent-clos'
         method='post'
         data-formtype='demo'
